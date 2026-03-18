@@ -11,6 +11,20 @@ import defenseRoutes from '../server/routes/defenses.js';
 const app = express();
 app.use(express.json());
 
+let connected = false;
+
+app.use(async (req, res, next) => {
+  try {
+    if (!connected) {
+      await connectDB();
+      connected = true;
+    }
+    next();
+  } catch {
+    res.status(500).json({ error: 'Database connection failed' });
+  }
+});
+
 app.use('/api/auth', authRoutes);
 app.use('/api/ideas', ideaRoutes);
 app.use('/api', backRoutes);
@@ -18,9 +32,9 @@ app.use('/api/users', userRoutes);
 app.use('/api', roastRoutes);
 app.use('/api', defenseRoutes);
 
-connectDB().then(() => {
+if (process.env.NODE_ENV !== 'production') {
   const port = process.env.PORT || 3000;
   app.listen(port, () => console.log(`Server running on port ${port}`));
-});
+}
 
 export default app;
