@@ -1,0 +1,34 @@
+.backer-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.backer-list-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.backer-items {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.backer-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+}
+
+.backer-name { color: var(--text-primary); }
+.backer-amount { color: var(--indigo); font-weight: 500; }
+
+.backers-empty {
+  font-size: 13px;
+  color: var(--text-secondary);
+}

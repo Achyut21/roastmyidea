@@ -1,0 +1,54 @@
+.back-widget {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.back-balance {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.back-row {
+  display: flex;
+  gap: 8px;
+}
+
+.back-input {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+  font-size: 14px;
+  color: var(--text-primary);
+  width: 140px;
+}
+
+.back-input:focus {
+  outline: none;
+  border-color: var(--indigo);
+  box-shadow: 0 0 0 2px var(--indigo-light);
+}
+
+.back-btn {
+  background: var(--indigo);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.back-btn:hover:not(:disabled) { background: var(--indigo-dark); }
+.back-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.back-error {
+  font-size: 13px;
+  color: var(--coral);
+}
+
+.back-msg {
+  font-size: 13px;
+  color: var(--text-secondary);
+}

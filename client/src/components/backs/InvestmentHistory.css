@@ -1,0 +1,48 @@
+.inv-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.inv-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+}
+
+.inv-title {
+  flex: 1;
+  color: var(--indigo);
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.inv-title:hover { text-decoration: underline; }
+
+.inv-amount {
+  font-weight: 500;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+.inv-outcome {
+  font-size: 12px;
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: var(--radius-xs);
+  white-space: nowrap;
+}
+
+.outcome-pending { background: var(--indigo-light); color: var(--indigo-text); }
+.outcome-win { background: var(--teal-light); color: var(--teal-text); }
+.outcome-loss { background: var(--coral-light); color: var(--coral-text); }
+.outcome-refund { background: var(--border); color: var(--text-secondary); }
+
+.inv-state {
+  font-size: 14px;
+  color: var(--text-secondary);
+}

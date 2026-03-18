@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import IdeaHeader from '../components/ideas/IdeaHeader.jsx';
 import VerdictBadge from '../components/ideas/VerdictBadge.jsx';
+import BackSection from '../components/backs/BackSection.jsx';
 import './IdeaDetailPage.css';
 
 export default function IdeaDetailPage() {
@@ -35,7 +36,7 @@ export default function IdeaDetailPage() {
           <span className="stat-rc">💰 {idea.totalRoastCoinInvested} RC Invested</span>
         </div>
       </div>
-      {/* RoastSection — Partner B */}
+      <BackSection idea={idea} />
       <div className="roast-section-placeholder">
         <p>Roasts and defenses load here</p>
       </div>
