@@ -8,11 +8,14 @@
   padding: 16px;
   text-decoration: none;
   color: inherit;
-  transition: border-color 0.15s;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
 }
 
 .idea-card:hover {
   border-color: var(--indigo);
+  box-shadow: 0 2px 8px rgba(91, 91, 214, 0.1);
   text-decoration: none;
 }
 

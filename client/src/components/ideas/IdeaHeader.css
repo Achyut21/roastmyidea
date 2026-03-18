@@ -91,3 +91,14 @@
   color: var(--text-primary);
   line-height: 1.5;
 }
+
+.idea-confirm {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.idea-confirm-text {
+  font-size: 13px;
+  color: var(--text-secondary);
+}

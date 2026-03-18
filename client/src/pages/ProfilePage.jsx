@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import TitleBadges from '../components/profile/TitleBadges.jsx';
 import ProfileStats from '../components/profile/ProfileStats.jsx';
 import InvestmentHistory from '../components/backs/InvestmentHistory.jsx';
+import { timeAgo } from '../utils/timeAgo.js';
 import './ProfilePage.css';
 
 export default function ProfilePage() {
@@ -17,8 +18,12 @@ export default function ProfilePage() {
     fetch(`/api/users/${id}/profile`)
       .then((r) => r.json())
       .then((data) => {
-        if (data.profile) setProfile(data.profile);
-        else setError(data.error || 'User not found');
+        if (data.profile) {
+          setProfile(data.profile);
+          document.title = `${data.profile.displayName} | RoastMyIdea`;
+        } else {
+          setError(data.error || 'User not found');
+        }
       })
       .catch(() => setError('Failed to load profile'))
       .finally(() => setLoading(false));
@@ -37,17 +42,12 @@ export default function ProfilePage() {
       </main>
     );
 
-  const joinDate = new Date(profile.createdAt).toLocaleDateString('en-US', {
-    month: 'long',
-    year: 'numeric',
-  });
-
   return (
     <main className="main-content profile-page">
       <div className="profile-header">
         <div>
           <h1 className="profile-name">{profile.displayName}</h1>
-          <p className="profile-joined">Member since {joinDate}</p>
+          <p className="profile-joined">Joined {timeAgo(profile.createdAt)}</p>
         </div>
         <TitleBadges
           roaster={profile.titles.roaster}

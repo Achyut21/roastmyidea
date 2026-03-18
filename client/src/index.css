@@ -57,6 +57,14 @@ button {
   font-family: inherit;
   font-size: 14px;
   font-weight: 500;
+  transition:
+    background 0.15s,
+    opacity 0.15s,
+    transform 0.1s;
+}
+
+button:active:not(:disabled) {
+  transform: scale(0.97);
 }
 
 input,
@@ -64,6 +72,9 @@ textarea,
 select {
   font-family: inherit;
   font-size: 14px;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
 }
 
 .main-content {

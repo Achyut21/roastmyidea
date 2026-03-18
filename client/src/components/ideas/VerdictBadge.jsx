@@ -9,9 +9,10 @@ function getTimeRemaining(createdAt) {
   const days = Math.floor(diff / (1000 * 60 * 60 * 24));
   const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
   const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-  if (days > 0) return `${days}d ${hours}h left`;
-  if (hours > 0) return `${hours}h ${mins}m left`;
-  return `${mins}m left`;
+  const urgent = diff < 24 * 60 * 60 * 1000;
+  if (days > 0) return { text: `${days}d ${hours}h left`, urgent };
+  if (hours > 0) return { text: `${hours}h ${mins}m left`, urgent };
+  return { text: `${mins}m left`, urgent };
 }
 
 export default function VerdictBadge({
@@ -66,8 +67,10 @@ export default function VerdictBadge({
     );
   }
   return (
-    <span className={`verdict-badge verdict-open${compact ? ' compact' : ''}`}>
-      {timeLeft}
+    <span
+      className={`verdict-badge verdict-open${compact ? ' compact' : ''}${timeLeft.urgent ? ' urgent' : ''}`}
+    >
+      {timeLeft.text}
     </span>
   );
 }

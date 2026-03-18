@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.jsx';
 import IdeaCard from '../components/ideas/IdeaCard.jsx';
 import FilterBar from '../components/ideas/FilterBar.jsx';
+import SkeletonCard from '../components/shared/SkeletonCard.jsx';
 import './BrowsePage.css';
 
 export default function BrowsePage() {
@@ -13,6 +14,10 @@ export default function BrowsePage() {
   const [sort, setSort] = useState('newest');
   const [category, setCategory] = useState('');
   const [status, setStatus] = useState('');
+
+  useEffect(() => {
+    document.title = 'Browse | RoastMyIdea';
+  }, []);
 
   useEffect(() => {
     setLoading(true);
@@ -49,10 +54,31 @@ export default function BrowsePage() {
         onCategoryChange={setCategory}
         onStatusChange={setStatus}
       />
-      {loading && <p className="browse-state">Loading...</p>}
+      {loading && (
+        <div className="browse-grid">
+          {['a', 'b', 'c', 'd', 'e', 'f'].map((k) => (
+            <SkeletonCard key={k} />
+          ))}
+        </div>
+      )}
       {fetchError && <p className="browse-state browse-error">{fetchError}</p>}
       {!loading && !fetchError && ideas.length === 0 && (
-        <p className="browse-state">No ideas match your filters.</p>
+        <div className="browse-empty-state">
+          <p className="browse-empty-icon">🔍</p>
+          <p className="browse-empty-title">No ideas found</p>
+          <p className="browse-empty-sub">
+            Try adjusting your filters or be the first to pitch one.
+          </p>
+          {user && (
+            <Link
+              to="/pitch"
+              className="browse-pitch-btn"
+              style={{ marginTop: 12 }}
+            >
+              Pitch Your Idea
+            </Link>
+          )}
+        </div>
       )}
       {!loading && !fetchError && ideas.length > 0 && (
         <div className="browse-grid">

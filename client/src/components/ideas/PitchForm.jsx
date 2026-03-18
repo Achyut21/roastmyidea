@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useAuth } from '../../context/AuthContext.jsx';
+import { useToast } from '../../context/ToastContext.jsx';
 import { CATEGORIES } from '../../utils/categories.js';
 import './PitchForm.css';
 
 export default function PitchForm({ existingIdea, onSuccess }) {
   const { getToken, updateBalance } = useAuth();
+  const { showToast } = useToast();
   const isEdit = Boolean(existingIdea);
 
   const [title, setTitle] = useState(existingIdea?.title || '');
@@ -49,6 +51,7 @@ export default function PitchForm({ existingIdea, onSuccess }) {
         const meData = await me.json();
         if (meData.user) updateBalance(meData.user.roastCoinBalance);
       }
+      showToast(isEdit ? 'Idea updated' : 'Idea pitched! +10 RC');
       onSuccess(data.idea._id);
     } catch {
       setError('Something went wrong. Try again.');

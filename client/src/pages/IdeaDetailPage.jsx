@@ -15,8 +15,12 @@ export default function IdeaDetailPage() {
     fetch(`/api/ideas/${id}`)
       .then((r) => r.json())
       .then((data) => {
-        if (data.idea) setIdea(data.idea);
-        else setError(data.error || 'Idea not found');
+        if (data.idea) {
+          setIdea(data.idea);
+          document.title = `${data.idea.title} | RoastMyIdea`;
+        } else {
+          setError(data.error || 'Idea not found');
+        }
       })
       .catch(() => setError('Failed to load idea'))
       .finally(() => setLoading(false));

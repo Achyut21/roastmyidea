@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LoginForm from '../components/auth/LoginForm.jsx';
 import RegisterForm from '../components/auth/RegisterForm.jsx';
@@ -7,6 +7,10 @@ import './AuthPage.css';
 export default function AuthPage() {
   const [isLogin, setIsLogin] = useState(true);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    document.title = 'Sign In | RoastMyIdea';
+  }, []);
 
   function handleSuccess() {
     navigate('/');

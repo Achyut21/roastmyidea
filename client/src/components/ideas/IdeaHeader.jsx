@@ -1,30 +1,26 @@
 import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useAuth } from '../../context/AuthContext.jsx';
 import { CATEGORY_LABELS } from '../../utils/categories.js';
+import { timeAgo } from '../../utils/timeAgo.js';
 import './IdeaHeader.css';
 
 export default function IdeaHeader({ idea }) {
   const { user, getToken } = useAuth();
   const navigate = useNavigate();
+  const [confirmDelete, setConfirmDelete] = useState(false);
   const isAuthor = user && user.id === idea.authorId.toString();
   const canDelete =
     isAuthor && idea.totalRoastCoinInvested === 0 && !idea.verdict;
 
   async function handleDelete() {
-    if (!window.confirm('Delete this idea? This cannot be undone.')) return;
     const res = await fetch(`/api/ideas/${idea._id}`, {
       method: 'DELETE',
       headers: { Authorization: `Bearer ${getToken()}` },
     });
     if (res.ok) navigate('/');
   }
-
-  const postedDate = new Date(idea.createdAt).toLocaleDateString('en-US', {
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric',
-  });
 
   return (
     <div className="idea-header">
@@ -39,13 +35,30 @@ export default function IdeaHeader({ idea }) {
                 Edit
               </Link>
             )}
-            {canDelete && (
+            {canDelete && !confirmDelete && (
               <button
                 className="idea-action-btn idea-action-delete"
-                onClick={handleDelete}
+                onClick={() => setConfirmDelete(true)}
               >
                 Delete
               </button>
+            )}
+            {canDelete && confirmDelete && (
+              <div className="idea-confirm">
+                <span className="idea-confirm-text">Sure?</span>
+                <button
+                  className="idea-action-btn idea-action-delete"
+                  onClick={handleDelete}
+                >
+                  Yes
+                </button>
+                <button
+                  className="idea-action-btn"
+                  onClick={() => setConfirmDelete(false)}
+                >
+                  Cancel
+                </button>
+              </div>
             )}
           </div>
         )}
@@ -56,7 +69,7 @@ export default function IdeaHeader({ idea }) {
         <Link to={`/users/${idea.authorId}`} className="idea-author-link">
           {idea.authorDisplayName}
         </Link>
-        {' · '}Posted {postedDate}
+        {' · '}Posted {timeAgo(idea.createdAt)}
       </p>
       <p className="idea-pitch">{idea.pitch}</p>
       {idea.problem && (

@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useAuth } from '../../context/AuthContext.jsx';
+import { useToast } from '../../context/ToastContext.jsx';
 import './BackWidget.css';
 
 export default function BackWidget({ idea, onBacked }) {
   const { user, getToken, updateBalance } = useAuth();
+  const { showToast } = useToast();
   const [amount, setAmount] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -36,6 +38,7 @@ export default function BackWidget({ idea, onBacked }) {
       if (!res.ok) return setError(data.error || 'Something went wrong');
       updateBalance(data.newBalance);
       setAmount('');
+      showToast(`Invested ${parsed} RC`);
       onBacked();
     } catch {
       setError('Something went wrong. Try again.');
