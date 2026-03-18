@@ -1,4 +1,5 @@
 import { MongoClient } from 'mongodb';
+import { createIndexes } from './indexes.js';
 
 let db;
 
@@ -7,6 +8,7 @@ export async function connectDB() {
   await client.connect();
   db = client.db('roastmyidea');
   console.log('Connected to MongoDB: roastmyidea');
+  await createIndexes();
   return db;
 }
 
