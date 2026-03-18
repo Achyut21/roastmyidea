@@ -6,6 +6,7 @@ import AuthPage from './pages/AuthPage.jsx';
 import IdeaDetailPage from './pages/IdeaDetailPage.jsx';
 import PitchPage from './pages/PitchPage.jsx';
 import EditIdeaPage from './pages/EditIdeaPage.jsx';
+import ProfilePage from './pages/ProfilePage.jsx';
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
           <Route path="/ideas/:id" element={<IdeaDetailPage />} />
           <Route path="/ideas/:id/edit" element={<EditIdeaPage />} />
           <Route path="/pitch" element={<PitchPage />} />
+          <Route path="/users/:id" element={<ProfilePage />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

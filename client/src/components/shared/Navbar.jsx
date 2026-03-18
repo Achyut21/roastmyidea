@@ -29,15 +29,13 @@ export default function Navbar() {
         {user && (
           <NavLink to="/pitch" className="navbar-link navbar-desktop-only">Pitch</NavLink>
         )}
+        {user && (
+          <NavLink to={`/users/${user.id}`} className="navbar-link navbar-desktop-only">Profile</NavLink>
+        )}
       </div>
 
       <div className="navbar-right">
         {user && <span className="navbar-rc">💰 {user.roastCoinBalance} RC</span>}
-        {user && (
-          <Link to={`/users/${user.id}`} className="navbar-link navbar-desktop-only">
-            {user.displayName}
-          </Link>
-        )}
         {user && (
           <button className="navbar-btn-secondary navbar-desktop-only" onClick={handleLogout}>
             Log Out
