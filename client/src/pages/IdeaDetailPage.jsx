@@ -49,6 +49,7 @@ export default function IdeaDetailPage() {
         </div>
       </div>
       <BackSection idea={idea} />
+      {/* needs RoastSection */}
       <div className="roast-section-placeholder">
         <p>Roasts and defenses load here</p>
       </div>
