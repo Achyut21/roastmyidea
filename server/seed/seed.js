@@ -6,29 +6,61 @@ const client = new MongoClient(process.env.MONGODB_URI);
 const db = client.db('roastmyidea');
 
 const NAMES = [
-  'Nate Chen', 'Priya Sharma', 'Marco Rivera', 'Leila Hassan',
-  'Jake Morrison', 'Aisha Okafor', 'Tommy Nguyen', 'Rosa Martinez',
-  'Derek Williams', 'Fiona Clarke', 'Raj Patel', 'Chloe Kim',
-  'Omar Diaz', 'Megan OBrien', 'Yusuf Ahmed', 'Hannah Lee',
-  'Carlos Reyes', 'Zara Khan', 'Ben Fischer', 'Tanya Ivanova',
-  'Luis Herrera', 'Simone Dubois', 'Eric Tanaka', 'Grace Muthu',
-  'Noah Park', 'Aaliya Bashir', 'Dylan Watts', 'Kira Johansson',
-  'Mateo Silva', 'Rina Takahashi',
+  'Nate Chen',
+  'Priya Sharma',
+  'Marco Rivera',
+  'Leila Hassan',
+  'Jake Morrison',
+  'Aisha Okafor',
+  'Tommy Nguyen',
+  'Rosa Martinez',
+  'Derek Williams',
+  'Fiona Clarke',
+  'Raj Patel',
+  'Chloe Kim',
+  'Omar Diaz',
+  'Megan OBrien',
+  'Yusuf Ahmed',
+  'Hannah Lee',
+  'Carlos Reyes',
+  'Zara Khan',
+  'Ben Fischer',
+  'Tanya Ivanova',
+  'Luis Herrera',
+  'Simone Dubois',
+  'Eric Tanaka',
+  'Grace Muthu',
+  'Noah Park',
+  'Aaliya Bashir',
+  'Dylan Watts',
+  'Kira Johansson',
+  'Mateo Silva',
+  'Rina Takahashi',
 ];
 
 const CATEGORIES = [
-  'startup', 'side-project', 'life-hack',
-  'tech-app', 'business', 'creative-art', 'other',
+  'startup',
+  'side-project',
+  'life-hack',
+  'tech-app',
+  'business',
+  'creative-art',
+  'other',
 ];
 
 const IDEA_TITLES = [
-  'Uber for Dog Walkers', 'Marketplace for Homemade Hot Sauce',
-  'Subscription Box for Office Snacks', 'Reverse Job Board Where Companies Apply to You',
-  'Platform That Matches Freelancers by Timezone', 'Tinder for Finding a Co-Founder',
-  'Airbnb for Parking Spots', 'App That Tells You Which Friends Owe You Money',
+  'Uber for Dog Walkers',
+  'Marketplace for Homemade Hot Sauce',
+  'Subscription Box for Office Snacks',
+  'Reverse Job Board Where Companies Apply to You',
+  'Platform That Matches Freelancers by Timezone',
+  'Tinder for Finding a Co-Founder',
+  'Airbnb for Parking Spots',
+  'App That Tells You Which Friends Owe You Money',
   'Browser Extension That Blocks LinkedIn Hustle Posts',
   'Tool That Converts Recipes Into Grocery Lists',
-  'CLI Tool That Roasts Your Code Quality', 'Bot That Texts You Compliments When Build Fails',
+  'CLI Tool That Roasts Your Code Quality',
+  'Bot That Texts You Compliments When Build Fails',
   'Site That Tells You If a Movie Is Worth Watching in 20 Minutes',
   'Tool That Tracks Hours in Meetings vs Actually Working',
   'App That Tells You the Fastest Grocery Checkout Line',
@@ -168,8 +200,14 @@ async function seedIdeas(users) {
       authorId,
       title,
       pitch: pick(PITCHES),
-      problem: Math.random() > 0.4 ? 'Most existing tools are either too complex or designed for enterprise. Nobody is building for the individual who just needs something that works.' : '',
-      targetAudience: Math.random() > 0.4 ? 'Early adopters, indie hackers, and people frustrated with over-engineered solutions.' : '',
+      problem:
+        Math.random() > 0.4
+          ? 'Most existing tools are either too complex or designed for enterprise. Nobody is building for the individual who just needs something that works.'
+          : '',
+      targetAudience:
+        Math.random() > 0.4
+          ? 'Early adopters, indie hackers, and people frustrated with over-engineered solutions.'
+          : '',
       category: pick(CATEGORIES),
       roastCount: 0,
       defenseCount: 0,
@@ -184,10 +222,9 @@ async function seedIdeas(users) {
       userOpenCount[authorId.toString()] = openForAuthor + 1;
     }
 
-    await db.collection('users').updateOne(
-      { _id: authorId },
-      { $inc: { roastCoinBalance: 10 } }
-    );
+    await db
+      .collection('users')
+      .updateOne({ _id: authorId }, { $inc: { roastCoinBalance: 10 } });
 
     ideas.push(idea);
   }
@@ -201,7 +238,9 @@ async function seedBacks(users, ideas) {
   const backs = [];
 
   for (const idea of ideas) {
-    const eligible = users.filter((u) => u._id.toString() !== idea.authorId.toString());
+    const eligible = users.filter(
+      (u) => u._id.toString() !== idea.authorId.toString()
+    );
     const backers = pickMultiple(eligible, Math.floor(Math.random() * 4) + 1);
 
     for (const backer of backers) {
@@ -211,7 +250,12 @@ async function seedBacks(users, ideas) {
 
       const createdAt = new Date(
         idea.createdAt.getTime() +
-        Math.random() * (Math.min(Date.now(), idea.createdAt.getTime() + 6.9 * 24 * 60 * 60 * 1000) - idea.createdAt.getTime())
+          Math.random() *
+            (Math.min(
+              Date.now(),
+              idea.createdAt.getTime() + 6.9 * 24 * 60 * 60 * 1000
+            ) -
+              idea.createdAt.getTime())
       );
 
       backs.push({
@@ -222,14 +266,18 @@ async function seedBacks(users, ideas) {
         createdAt,
       });
 
-      await db.collection('users').updateOne(
-        { _id: backer._id },
-        { $inc: { roastCoinBalance: -amount } }
-      );
-      await db.collection('ideas').updateOne(
-        { _id: idea._id },
-        { $inc: { totalRoastCoinInvested: amount } }
-      );
+      await db
+        .collection('users')
+        .updateOne(
+          { _id: backer._id },
+          { $inc: { roastCoinBalance: -amount } }
+        );
+      await db
+        .collection('ideas')
+        .updateOne(
+          { _id: idea._id },
+          { $inc: { totalRoastCoinInvested: amount } }
+        );
     }
   }
 
@@ -245,22 +293,32 @@ async function processVerdicts(ideas) {
   });
 
   for (const idea of oldIdeas) {
-    const roastCount = await db.collection('roasts').countDocuments({ ideaId: idea._id, deleted: false });
-    const defenseCount = await db.collection('defenses').countDocuments({ ideaId: idea._id, deleted: false });
+    const roastCount = await db
+      .collection('roasts')
+      .countDocuments({ ideaId: idea._id, deleted: false });
+    const defenseCount = await db
+      .collection('defenses')
+      .countDocuments({ ideaId: idea._id, deleted: false });
     const totalInteractions = roastCount + defenseCount;
 
     let verdict;
     if (totalInteractions < 5) {
       verdict = 'lukewarm';
     } else {
-      const roastAgg = await db.collection('roasts').aggregate([
-        { $match: { ideaId: idea._id, deleted: false } },
-        { $group: { _id: null, total: { $sum: '$upvoteCount' } } },
-      ]).toArray();
-      const defenseAgg = await db.collection('defenses').aggregate([
-        { $match: { ideaId: idea._id, deleted: false } },
-        { $group: { _id: null, total: { $sum: '$upvoteCount' } } },
-      ]).toArray();
+      const roastAgg = await db
+        .collection('roasts')
+        .aggregate([
+          { $match: { ideaId: idea._id, deleted: false } },
+          { $group: { _id: null, total: { $sum: '$upvoteCount' } } },
+        ])
+        .toArray();
+      const defenseAgg = await db
+        .collection('defenses')
+        .aggregate([
+          { $match: { ideaId: idea._id, deleted: false } },
+          { $group: { _id: null, total: { $sum: '$upvoteCount' } } },
+        ])
+        .toArray();
 
       const roastUpvotes = roastAgg[0]?.total || 0;
       const defenseUpvotes = defenseAgg[0]?.total || 0;
@@ -270,30 +328,38 @@ async function processVerdicts(ideas) {
       else verdict = 'lukewarm';
     }
 
-    await db.collection('ideas').updateOne(
-      { _id: idea._id },
-      { $set: { verdict, verdictProcessed: true } }
-    );
+    await db
+      .collection('ideas')
+      .updateOne(
+        { _id: idea._id },
+        { $set: { verdict, verdictProcessed: true } }
+      );
 
-    const backs = await db.collection('backs').find({ ideaId: idea._id }).toArray();
+    const backs = await db
+      .collection('backs')
+      .find({ ideaId: idea._id })
+      .toArray();
 
     if (verdict === 'fireproof') {
-      await db.collection('users').updateOne(
-        { _id: idea.authorId },
-        { $inc: { roastCoinBalance: 50 } }
-      );
+      await db
+        .collection('users')
+        .updateOne({ _id: idea.authorId }, { $inc: { roastCoinBalance: 50 } });
       for (const back of backs) {
-        await db.collection('users').updateOne(
-          { _id: back.backerId },
-          { $inc: { roastCoinBalance: Math.floor(back.amount * 1.5) } }
-        );
+        await db
+          .collection('users')
+          .updateOne(
+            { _id: back.backerId },
+            { $inc: { roastCoinBalance: Math.floor(back.amount * 1.5) } }
+          );
       }
     } else if (verdict === 'lukewarm') {
       for (const back of backs) {
-        await db.collection('users').updateOne(
-          { _id: back.backerId },
-          { $inc: { roastCoinBalance: back.amount } }
-        );
+        await db
+          .collection('users')
+          .updateOne(
+            { _id: back.backerId },
+            { $inc: { roastCoinBalance: back.amount } }
+          );
       }
     }
   }
@@ -322,7 +388,7 @@ async function seed() {
   // for Rules one roast per user per idea, no roasting own idea, side-pick enforced (cant roast AND defend same idea)
   //  and one defense per user per roast.
   // After inserting, update idea.roastCount and idea.defenseCount.
-  
+
   await processVerdicts(ideas);
 
   const counts = await Promise.all([

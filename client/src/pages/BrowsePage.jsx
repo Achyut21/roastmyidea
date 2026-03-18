@@ -32,13 +32,23 @@ export default function BrowsePage() {
       <div className="browse-top">
         <h1 className="browse-title">Ideas</h1>
         {user ? (
-          <Link to="/pitch" className="browse-pitch-btn">+ Pitch Your Idea</Link>
+          <Link to="/pitch" className="browse-pitch-btn">
+            + Pitch Your Idea
+          </Link>
         ) : (
-          <Link to="/auth" className="browse-pitch-btn">Log in to Pitch</Link>
+          <Link to="/auth" className="browse-pitch-btn">
+            Log in to Pitch
+          </Link>
         )}
       </div>
-      <FilterBar sort={sort} category={category} status={status}
-        onSortChange={setSort} onCategoryChange={setCategory} onStatusChange={setStatus} />
+      <FilterBar
+        sort={sort}
+        category={category}
+        status={status}
+        onSortChange={setSort}
+        onCategoryChange={setCategory}
+        onStatusChange={setStatus}
+      />
       {loading && <p className="browse-state">Loading...</p>}
       {fetchError && <p className="browse-state browse-error">{fetchError}</p>}
       {!loading && !fetchError && ideas.length === 0 && (
@@ -46,7 +56,9 @@ export default function BrowsePage() {
       )}
       {!loading && !fetchError && ideas.length > 0 && (
         <div className="browse-grid">
-          {ideas.map((idea) => <IdeaCard key={idea._id} idea={idea} />)}
+          {ideas.map((idea) => (
+            <IdeaCard key={idea._id} idea={idea} />
+          ))}
         </div>
       )}
     </main>

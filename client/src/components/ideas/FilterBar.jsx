@@ -18,18 +18,49 @@ const STATUSES = [
   { value: 'lukewarm', label: 'Lukewarm' },
 ];
 
-export default function FilterBar({ sort, category, status, onSortChange, onCategoryChange, onStatusChange }) {
+export default function FilterBar({
+  sort,
+  category,
+  status,
+  onSortChange,
+  onCategoryChange,
+  onStatusChange,
+}) {
   return (
     <div className="filter-bar">
-      <select className="filter-select" value={sort} onChange={(e) => onSortChange(e.target.value)}>
-        {SORTS.map((s) => <option key={s.value} value={s.value}>{s.label}</option>)}
+      <select
+        className="filter-select"
+        value={sort}
+        onChange={(e) => onSortChange(e.target.value)}
+      >
+        {SORTS.map((s) => (
+          <option key={s.value} value={s.value}>
+            {s.label}
+          </option>
+        ))}
       </select>
-      <select className="filter-select" value={category} onChange={(e) => onCategoryChange(e.target.value)}>
+      <select
+        className="filter-select"
+        value={category}
+        onChange={(e) => onCategoryChange(e.target.value)}
+      >
         <option value="">All Categories</option>
-        {CATEGORIES.map((c) => <option key={c.value} value={c.value}>{c.label}</option>)}
+        {CATEGORIES.map((c) => (
+          <option key={c.value} value={c.value}>
+            {c.label}
+          </option>
+        ))}
       </select>
-      <select className="filter-select" value={status} onChange={(e) => onStatusChange(e.target.value)}>
-        {STATUSES.map((s) => <option key={s.value} value={s.value}>{s.label}</option>)}
+      <select
+        className="filter-select"
+        value={status}
+        onChange={(e) => onStatusChange(e.target.value)}
+      >
+        {STATUSES.map((s) => (
+          <option key={s.value} value={s.value}>
+            {s.label}
+          </option>
+        ))}
       </select>
     </div>
   );

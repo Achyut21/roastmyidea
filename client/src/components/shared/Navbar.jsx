@@ -21,28 +21,46 @@ export default function Navbar() {
   return (
     <nav className="navbar">
       <div className="navbar-left">
-        <Link to="/" className="navbar-logo" onClick={closeMenu}>RoastMyIdea</Link>
+        <Link to="/" className="navbar-logo" onClick={closeMenu}>
+          RoastMyIdea
+        </Link>
       </div>
 
       <div className="navbar-center">
-        <NavLink to="/" end className="navbar-link navbar-desktop-only">Browse</NavLink>
+        <NavLink to="/" end className="navbar-link navbar-desktop-only">
+          Browse
+        </NavLink>
         {user && (
-          <NavLink to="/pitch" className="navbar-link navbar-desktop-only">Pitch</NavLink>
+          <NavLink to="/pitch" className="navbar-link navbar-desktop-only">
+            Pitch
+          </NavLink>
         )}
         {user && (
-          <NavLink to={`/users/${user.id}`} className="navbar-link navbar-desktop-only">Profile</NavLink>
+          <NavLink
+            to={`/users/${user.id}`}
+            className="navbar-link navbar-desktop-only"
+          >
+            Profile
+          </NavLink>
         )}
       </div>
 
       <div className="navbar-right">
-        {user && <span className="navbar-rc">💰 {user.roastCoinBalance} RC</span>}
         {user && (
-          <button className="navbar-btn-secondary navbar-desktop-only" onClick={handleLogout}>
+          <span className="navbar-rc">💰 {user.roastCoinBalance} RC</span>
+        )}
+        {user && (
+          <button
+            className="navbar-btn-secondary navbar-desktop-only"
+            onClick={handleLogout}
+          >
             Log Out
           </button>
         )}
         {!user && (
-          <Link to="/auth" className="navbar-btn navbar-desktop-only">Log In</Link>
+          <Link to="/auth" className="navbar-btn navbar-desktop-only">
+            Log In
+          </Link>
         )}
         <button
           className="navbar-hamburger navbar-mobile-only"
@@ -55,16 +73,33 @@ export default function Navbar() {
 
       {menuOpen && (
         <div className="navbar-dropdown">
-          <NavLink to="/" end className="dropdown-link" onClick={closeMenu}>Browse</NavLink>
-          {user && <NavLink to="/pitch" className="dropdown-link" onClick={closeMenu}>Pitch</NavLink>}
+          <NavLink to="/" end className="dropdown-link" onClick={closeMenu}>
+            Browse
+          </NavLink>
           {user && (
-            <Link to={`/users/${user.id}`} className="dropdown-link" onClick={closeMenu}>
+            <NavLink to="/pitch" className="dropdown-link" onClick={closeMenu}>
+              Pitch
+            </NavLink>
+          )}
+          {user && (
+            <Link
+              to={`/users/${user.id}`}
+              className="dropdown-link"
+              onClick={closeMenu}
+            >
               {user.displayName}
             </Link>
           )}
-          {!user && <Link to="/auth" className="dropdown-link" onClick={closeMenu}>Log In</Link>}
+          {!user && (
+            <Link to="/auth" className="dropdown-link" onClick={closeMenu}>
+              Log In
+            </Link>
+          )}
           {user && (
-            <button className="dropdown-link dropdown-logout" onClick={handleLogout}>
+            <button
+              className="dropdown-link dropdown-logout"
+              onClick={handleLogout}
+            >
               Log Out
             </button>
           )}

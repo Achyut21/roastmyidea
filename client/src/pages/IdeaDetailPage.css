@@ -22,9 +22,15 @@
   font-size: 14px;
 }
 
-.detail-stats .stat-roast { color: var(--coral); }
-.detail-stats .stat-defense { color: var(--teal); }
-.detail-stats .stat-rc { color: var(--text-secondary); }
+.detail-stats .stat-roast {
+  color: var(--coral);
+}
+.detail-stats .stat-defense {
+  color: var(--teal);
+}
+.detail-stats .stat-rc {
+  color: var(--text-secondary);
+}
 
 .roast-section-placeholder {
   padding: 24px;

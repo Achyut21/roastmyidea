@@ -1,9 +1,9 @@
 import { Router } from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { ObjectId } from 'mongodb';
 import { getDB } from '../db/connection.js';
 import { requireAuth } from '../middleware/auth.js';
+import { parseId } from '../utils/parseId.js';
 
 const router = Router();
 const SALT_ROUNDS = 10;
@@ -29,7 +29,9 @@ router.post('/register', async (req, res) => {
     return res.status(400).json({ error: 'All fields are required' });
   }
   if (password.length < 6) {
-    return res.status(400).json({ error: 'Password must be at least 6 characters' });
+    return res
+      .status(400)
+      .json({ error: 'Password must be at least 6 characters' });
   }
   const db = getDB();
   const existing = await db
@@ -76,7 +78,7 @@ router.get('/me', requireAuth, async (req, res) => {
   const db = getDB();
   const user = await db
     .collection('users')
-    .findOne({ _id: ObjectId.createFromHexString(req.userId) });
+    .findOne({ _id: parseId(req.userId) });
   if (!user) return res.status(404).json({ error: 'User not found' });
   res.json({ user: userResponse(user) });
 });

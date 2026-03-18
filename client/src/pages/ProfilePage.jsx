@@ -24,11 +24,22 @@ export default function ProfilePage() {
       .finally(() => setLoading(false));
   }, [id]);
 
-  if (loading) return <main className="main-content"><p className="profile-state">Loading...</p></main>;
-  if (error) return <main className="main-content"><p className="profile-state">{error}</p></main>;
+  if (loading)
+    return (
+      <main className="main-content">
+        <p className="profile-state">Loading...</p>
+      </main>
+    );
+  if (error)
+    return (
+      <main className="main-content">
+        <p className="profile-state">{error}</p>
+      </main>
+    );
 
   const joinDate = new Date(profile.createdAt).toLocaleDateString('en-US', {
-    month: 'long', year: 'numeric',
+    month: 'long',
+    year: 'numeric',
   });
 
   return (
@@ -61,7 +72,12 @@ export default function ProfilePage() {
       </div>
 
       {tab === 'stats' && (
-        <ProfileStats stats={{ ...profile.stats, roastCoinBalance: profile.roastCoinBalance }} />
+        <ProfileStats
+          stats={{
+            ...profile.stats,
+            roastCoinBalance: profile.roastCoinBalance,
+          }}
+        />
       )}
       {tab === 'investments' && <InvestmentHistory userId={id} />}
     </main>

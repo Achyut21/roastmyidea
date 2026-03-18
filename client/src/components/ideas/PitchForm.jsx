@@ -11,7 +11,9 @@ export default function PitchForm({ existingIdea, onSuccess }) {
   const [title, setTitle] = useState(existingIdea?.title || '');
   const [pitch, setPitch] = useState(existingIdea?.pitch || '');
   const [problem, setProblem] = useState(existingIdea?.problem || '');
-  const [targetAudience, setTargetAudience] = useState(existingIdea?.targetAudience || '');
+  const [targetAudience, setTargetAudience] = useState(
+    existingIdea?.targetAudience || ''
+  );
   const [category, setCategory] = useState(existingIdea?.category || 'startup');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -21,15 +23,29 @@ export default function PitchForm({ existingIdea, onSuccess }) {
     setError('');
     setLoading(true);
     try {
-      const res = await fetch(isEdit ? `/api/ideas/${existingIdea._id}` : '/api/ideas', {
-        method: isEdit ? 'PUT' : 'POST',
-        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${getToken()}` },
-        body: JSON.stringify({ title, pitch, problem, targetAudience, category }),
-      });
+      const res = await fetch(
+        isEdit ? `/api/ideas/${existingIdea._id}` : '/api/ideas',
+        {
+          method: isEdit ? 'PUT' : 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${getToken()}`,
+          },
+          body: JSON.stringify({
+            title,
+            pitch,
+            problem,
+            targetAudience,
+            category,
+          }),
+        }
+      );
       const data = await res.json();
       if (!res.ok) return setError(data.error || 'Something went wrong');
       if (!isEdit) {
-        const me = await fetch('/api/auth/me', { headers: { Authorization: `Bearer ${getToken()}` } });
+        const me = await fetch('/api/auth/me', {
+          headers: { Authorization: `Bearer ${getToken()}` },
+        });
         const meData = await me.json();
         if (meData.user) updateBalance(meData.user.roastCoinBalance);
       }
@@ -48,36 +64,64 @@ export default function PitchForm({ existingIdea, onSuccess }) {
         <span className="pitch-label-row">
           Title <span className="pitch-counter">{title.length}/100</span>
         </span>
-        <input className="field-input" type="text" value={title} maxLength={100}
-          onChange={(e) => setTitle(e.target.value)} required />
+        <input
+          className="field-input"
+          type="text"
+          value={title}
+          maxLength={100}
+          onChange={(e) => setTitle(e.target.value)}
+          required
+        />
       </label>
       <label className="pitch-label">
         <span className="pitch-label-row">
           Pitch <span className="pitch-counter">{pitch.length}/500</span>
         </span>
-        <textarea className="field-input field-textarea field-textarea-lg" value={pitch} maxLength={500}
-          onChange={(e) => setPitch(e.target.value)} required />
+        <textarea
+          className="field-input field-textarea field-textarea-lg"
+          value={pitch}
+          maxLength={500}
+          onChange={(e) => setPitch(e.target.value)}
+          required
+        />
       </label>
       <label className="pitch-label">
         <span className="pitch-label-row">
           Problem Statement <span className="pitch-optional">optional</span>
           <span className="pitch-counter">{problem.length}/300</span>
         </span>
-        <textarea className="field-input field-textarea" value={problem} maxLength={300}
-          onChange={(e) => setProblem(e.target.value)} />
+        <textarea
+          className="field-input field-textarea"
+          value={problem}
+          maxLength={300}
+          onChange={(e) => setProblem(e.target.value)}
+        />
       </label>
       <label className="pitch-label">
         <span className="pitch-label-row">
           Target Audience <span className="pitch-optional">optional</span>
           <span className="pitch-counter">{targetAudience.length}/200</span>
         </span>
-        <input className="field-input" type="text" value={targetAudience} maxLength={200}
-          onChange={(e) => setTargetAudience(e.target.value)} />
+        <input
+          className="field-input"
+          type="text"
+          value={targetAudience}
+          maxLength={200}
+          onChange={(e) => setTargetAudience(e.target.value)}
+        />
       </label>
       <label className="pitch-label">
         Category
-        <select className="field-input" value={category} onChange={(e) => setCategory(e.target.value)}>
-          {CATEGORIES.map((c) => <option key={c.value} value={c.value}>{c.label}</option>)}
+        <select
+          className="field-input"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+        >
+          {CATEGORIES.map((c) => (
+            <option key={c.value} value={c.value}>
+              {c.label}
+            </option>
+          ))}
         </select>
       </label>
       <button type="submit" className="pitch-btn" disabled={loading}>

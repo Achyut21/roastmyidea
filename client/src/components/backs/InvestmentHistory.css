@@ -21,7 +21,9 @@
   text-overflow: ellipsis;
 }
 
-.inv-title:hover { text-decoration: underline; }
+.inv-title:hover {
+  text-decoration: underline;
+}
 
 .inv-amount {
   font-weight: 500;
@@ -37,10 +39,22 @@
   white-space: nowrap;
 }
 
-.outcome-pending { background: var(--indigo-light); color: var(--indigo-text); }
-.outcome-win { background: var(--teal-light); color: var(--teal-text); }
-.outcome-loss { background: var(--coral-light); color: var(--coral-text); }
-.outcome-refund { background: var(--border); color: var(--text-secondary); }
+.outcome-pending {
+  background: var(--indigo-light);
+  color: var(--indigo-text);
+}
+.outcome-win {
+  background: var(--teal-light);
+  color: var(--teal-text);
+}
+.outcome-loss {
+  background: var(--coral-light);
+  color: var(--coral-text);
+}
+.outcome-refund {
+  background: var(--border);
+  color: var(--text-secondary);
+}
 
 .inv-state {
   font-size: 14px;

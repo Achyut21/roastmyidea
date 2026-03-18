@@ -17,10 +17,12 @@ router.post('/ideas/:id/back', requireAuth, async (req, res) => {
 
   const idea = await db.collection('ideas').findOne({ _id: ideaId });
   if (!idea) return res.status(404).json({ error: 'Idea not found' });
-  if (idea.verdict !== null) return res.status(400).json({ error: 'Idea is closed' });
+  if (idea.verdict !== null)
+    return res.status(400).json({ error: 'Idea is closed' });
 
   const deadline = new Date(idea.createdAt.getTime() + 7 * 24 * 60 * 60 * 1000);
-  if (Date.now() > deadline) return res.status(400).json({ error: 'Idea is closed' });
+  if (Date.now() > deadline)
+    return res.status(400).json({ error: 'Idea is closed' });
 
   const backerId = parseId(req.userId);
   if (idea.authorId.toString() === req.userId) {
@@ -32,14 +34,12 @@ router.post('/ideas/:id/back', requireAuth, async (req, res) => {
     return res.status(400).json({ error: 'Insufficient RoastCoin balance' });
   }
 
-  await db.collection('users').updateOne(
-    { _id: backerId },
-    { $inc: { roastCoinBalance: -amount } }
-  );
-  await db.collection('ideas').updateOne(
-    { _id: ideaId },
-    { $inc: { totalRoastCoinInvested: amount } }
-  );
+  await db
+    .collection('users')
+    .updateOne({ _id: backerId }, { $inc: { roastCoinBalance: -amount } });
+  await db
+    .collection('ideas')
+    .updateOne({ _id: ideaId }, { $inc: { totalRoastCoinInvested: amount } });
 
   const back = await db.collection('backs').insertOne({
     ideaId,
@@ -57,7 +57,11 @@ router.get('/ideas/:id/backs', async (req, res) => {
   const ideaId = parseId(req.params.id);
   if (!ideaId) return res.status(400).json({ error: 'Invalid idea ID' });
 
-  const backs = await db.collection('backs').find({ ideaId }).sort({ createdAt: 1 }).toArray();
+  const backs = await db
+    .collection('backs')
+    .find({ ideaId })
+    .sort({ createdAt: 1 })
+    .toArray();
 
   const backerIds = [...new Set(backs.map((b) => b.backerId.toString()))];
   const users = await db
@@ -65,7 +69,9 @@ router.get('/ideas/:id/backs', async (req, res) => {
     .find({ _id: { $in: backerIds.map(parseId) } })
     .project({ displayName: 1 })
     .toArray();
-  const userMap = Object.fromEntries(users.map((u) => [u._id.toString(), u.displayName]));
+  const userMap = Object.fromEntries(
+    users.map((u) => [u._id.toString(), u.displayName])
+  );
 
   const result = backs.map((b) => ({
     ...b,

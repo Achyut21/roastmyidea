@@ -8,11 +8,22 @@ import { ObjectId } from 'mongodb';
 const router = Router();
 
 const VALID_CATEGORIES = [
-  'startup', 'side-project', 'life-hack',
-  'tech-app', 'business', 'creative-art', 'other',
+  'startup',
+  'side-project',
+  'life-hack',
+  'tech-app',
+  'business',
+  'creative-art',
+  'other',
 ];
 
-function validateIdeaFields({ title, pitch, problem, targetAudience, category }) {
+function validateIdeaFields({
+  title,
+  pitch,
+  problem,
+  targetAudience,
+  category,
+}) {
   if (!title || title.length < 10 || title.length > 100)
     return 'Title must be between 10 and 100 characters';
   if (!pitch || pitch.length < 50 || pitch.length > 500)
@@ -21,8 +32,7 @@ function validateIdeaFields({ title, pitch, problem, targetAudience, category })
     return 'Problem must be 300 characters or fewer';
   if (targetAudience && targetAudience.length > 200)
     return 'Target audience must be 200 characters or fewer';
-  if (!VALID_CATEGORIES.includes(category))
-    return 'Invalid category';
+  if (!VALID_CATEGORIES.includes(category)) return 'Invalid category';
   return null;
 }
 
@@ -33,8 +43,13 @@ async function attachAuthor(db, ideas) {
     .find({ _id: { $in: ids.map((id) => ObjectId.createFromHexString(id)) } })
     .project({ displayName: 1 })
     .toArray();
-  const map = Object.fromEntries(authors.map((a) => [a._id.toString(), a.displayName]));
-  return ideas.map((idea) => ({ ...idea, authorDisplayName: map[idea.authorId.toString()] || 'Unknown' }));
+  const map = Object.fromEntries(
+    authors.map((a) => [a._id.toString(), a.displayName])
+  );
+  return ideas.map((idea) => ({
+    ...idea,
+    authorDisplayName: map[idea.authorId.toString()] || 'Unknown',
+  }));
 }
 
 // GET /api/ideas
@@ -100,25 +115,42 @@ router.get('/:id', async (req, res) => {
 router.post('/', requireAuth, async (req, res) => {
   const db = getDB();
   const { title, pitch, problem, targetAudience, category } = req.body;
-  const err = validateIdeaFields({ title, pitch, problem, targetAudience, category });
+  const err = validateIdeaFields({
+    title,
+    pitch,
+    problem,
+    targetAudience,
+    category,
+  });
   if (err) return res.status(400).json({ error: err });
 
   const authorId = parseId(req.userId);
-  const openCount = await db.collection('ideas').countDocuments({ authorId, verdict: null });
-  if (openCount >= 5) return res.status(400).json({ error: 'You already have 5 open ideas' });
+  const openCount = await db
+    .collection('ideas')
+    .countDocuments({ authorId, verdict: null });
+  if (openCount >= 5)
+    return res.status(400).json({ error: 'You already have 5 open ideas' });
 
   const now = new Date();
   const result = await db.collection('ideas').insertOne({
-    authorId, title, pitch,
+    authorId,
+    title,
+    pitch,
     problem: problem || '',
     targetAudience: targetAudience || '',
     category,
-    roastCount: 0, defenseCount: 0, totalRoastCoinInvested: 0,
-    verdict: null, verdictProcessed: false,
-    createdAt: now, updatedAt: now,
+    roastCount: 0,
+    defenseCount: 0,
+    totalRoastCoinInvested: 0,
+    verdict: null,
+    verdictProcessed: false,
+    createdAt: now,
+    updatedAt: now,
   });
 
-  await db.collection('users').updateOne({ _id: authorId }, { $inc: { roastCoinBalance: 10 } });
+  await db
+    .collection('users')
+    .updateOne({ _id: authorId }, { $inc: { roastCoinBalance: 10 } });
   const idea = await db.collection('ideas').findOne({ _id: result.insertedId });
   res.status(201).json({ idea });
 });
@@ -131,15 +163,32 @@ router.put('/:id', requireAuth, async (req, res) => {
 
   const idea = await db.collection('ideas').findOne({ _id: ideaId });
   if (!idea) return res.status(404).json({ error: 'Idea not found' });
-  if (idea.authorId.toString() !== req.userId) return res.status(403).json({ error: 'Not your idea' });
+  if (idea.authorId.toString() !== req.userId)
+    return res.status(403).json({ error: 'Not your idea' });
 
   const { title, pitch, problem, targetAudience, category } = req.body;
-  const err = validateIdeaFields({ title, pitch, problem, targetAudience, category });
+  const err = validateIdeaFields({
+    title,
+    pitch,
+    problem,
+    targetAudience,
+    category,
+  });
   if (err) return res.status(400).json({ error: err });
 
-  await db.collection('ideas').updateOne({ _id: ideaId }, {
-    $set: { title, pitch, problem: problem || '', targetAudience: targetAudience || '', category, updatedAt: new Date() },
-  });
+  await db.collection('ideas').updateOne(
+    { _id: ideaId },
+    {
+      $set: {
+        title,
+        pitch,
+        problem: problem || '',
+        targetAudience: targetAudience || '',
+        category,
+        updatedAt: new Date(),
+      },
+    }
+  );
   res.json({ idea: await db.collection('ideas').findOne({ _id: ideaId }) });
 });
 
@@ -151,8 +200,12 @@ router.delete('/:id', requireAuth, async (req, res) => {
 
   const idea = await db.collection('ideas').findOne({ _id: ideaId });
   if (!idea) return res.status(404).json({ error: 'Idea not found' });
-  if (idea.authorId.toString() !== req.userId) return res.status(403).json({ error: 'Not your idea' });
-  if (idea.totalRoastCoinInvested > 0) return res.status(400).json({ error: 'Cannot delete an idea with investments' });
+  if (idea.authorId.toString() !== req.userId)
+    return res.status(403).json({ error: 'Not your idea' });
+  if (idea.totalRoastCoinInvested > 0)
+    return res
+      .status(400)
+      .json({ error: 'Cannot delete an idea with investments' });
 
   await db.collection('ideas').deleteOne({ _id: ideaId });
   await db.collection('roasts').deleteMany({ ideaId });

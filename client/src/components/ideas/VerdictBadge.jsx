@@ -14,7 +14,11 @@ function getTimeRemaining(createdAt) {
   return `${mins}m left`;
 }
 
-export default function VerdictBadge({ verdict = null, createdAt, compact = false }) {
+export default function VerdictBadge({
+  verdict = null,
+  createdAt,
+  compact = false,
+}) {
   const [timeLeft, setTimeLeft] = useState(() => getTimeRemaining(createdAt));
 
   useEffect(() => {
@@ -26,18 +30,46 @@ export default function VerdictBadge({ verdict = null, createdAt, compact = fals
   }, [verdict, createdAt]);
 
   if (verdict === 'fireproof') {
-    return <span className={`verdict-badge verdict-fireproof${compact ? ' compact' : ''}`}>FIREPROOF</span>;
+    return (
+      <span
+        className={`verdict-badge verdict-fireproof${compact ? ' compact' : ''}`}
+      >
+        FIREPROOF
+      </span>
+    );
   }
   if (verdict === 'torched') {
-    return <span className={`verdict-badge verdict-torched${compact ? ' compact' : ''}`}>TORCHED</span>;
+    return (
+      <span
+        className={`verdict-badge verdict-torched${compact ? ' compact' : ''}`}
+      >
+        TORCHED
+      </span>
+    );
   }
   if (verdict === 'lukewarm') {
-    return <span className={`verdict-badge verdict-lukewarm${compact ? ' compact' : ''}`}>LUKEWARM</span>;
+    return (
+      <span
+        className={`verdict-badge verdict-lukewarm${compact ? ' compact' : ''}`}
+      >
+        LUKEWARM
+      </span>
+    );
   }
   if (!timeLeft) {
-    return <span className={`verdict-badge verdict-lukewarm${compact ? ' compact' : ''}`}>Calculating...</span>;
+    return (
+      <span
+        className={`verdict-badge verdict-lukewarm${compact ? ' compact' : ''}`}
+      >
+        Calculating...
+      </span>
+    );
   }
-  return <span className={`verdict-badge verdict-open${compact ? ' compact' : ''}`}>{timeLeft}</span>;
+  return (
+    <span className={`verdict-badge verdict-open${compact ? ' compact' : ''}`}>
+      {timeLeft}
+    </span>
+  );
 }
 
 VerdictBadge.propTypes = {

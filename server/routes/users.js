@@ -46,22 +46,39 @@ router.get('/:id/profile', async (req, res) => {
     defenseUpvotesAgg,
   ] = await Promise.all([
     db.collection('ideas').countDocuments({ authorId: userId }),
-    db.collection('ideas').countDocuments({ authorId: userId, verdict: 'fireproof' }),
-    db.collection('ideas').countDocuments({ authorId: userId, verdict: 'torched' }),
-    db.collection('roasts').countDocuments({ authorId: userId, deleted: { $ne: true } }),
-    db.collection('defenses').countDocuments({ authorId: userId, deleted: { $ne: true } }),
-    db.collection('backs').aggregate([
-      { $match: { backerId: userId } },
-      { $group: { _id: null, total: { $sum: '$amount' } } },
-    ]).toArray(),
-    db.collection('roasts').aggregate([
-      { $match: { authorId: userId, deleted: { $ne: true } } },
-      { $group: { _id: null, total: { $sum: '$upvoteCount' } } },
-    ]).toArray(),
-    db.collection('defenses').aggregate([
-      { $match: { authorId: userId, deleted: { $ne: true } } },
-      { $group: { _id: null, total: { $sum: '$upvoteCount' } } },
-    ]).toArray(),
+    db
+      .collection('ideas')
+      .countDocuments({ authorId: userId, verdict: 'fireproof' }),
+    db
+      .collection('ideas')
+      .countDocuments({ authorId: userId, verdict: 'torched' }),
+    db
+      .collection('roasts')
+      .countDocuments({ authorId: userId, deleted: { $ne: true } }),
+    db
+      .collection('defenses')
+      .countDocuments({ authorId: userId, deleted: { $ne: true } }),
+    db
+      .collection('backs')
+      .aggregate([
+        { $match: { backerId: userId } },
+        { $group: { _id: null, total: { $sum: '$amount' } } },
+      ])
+      .toArray(),
+    db
+      .collection('roasts')
+      .aggregate([
+        { $match: { authorId: userId, deleted: { $ne: true } } },
+        { $group: { _id: null, total: { $sum: '$upvoteCount' } } },
+      ])
+      .toArray(),
+    db
+      .collection('defenses')
+      .aggregate([
+        { $match: { authorId: userId, deleted: { $ne: true } } },
+        { $group: { _id: null, total: { $sum: '$upvoteCount' } } },
+      ])
+      .toArray(),
   ]);
 
   const totalRcInvested = rcInvestedAgg[0]?.total || 0;

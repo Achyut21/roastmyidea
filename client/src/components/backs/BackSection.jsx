@@ -22,7 +22,8 @@ export default function BackSection({ idea }) {
 BackSection.propTypes = {
   idea: PropTypes.shape({
     _id: PropTypes.string.isRequired,
-    authorId: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
+    authorId: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
+      .isRequired,
     verdict: PropTypes.string,
   }).isRequired,
 };

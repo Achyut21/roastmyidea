@@ -26,14 +26,26 @@ export default function EditIdeaPage() {
     navigate(`/ideas/${id}`);
   }
 
-  if (loading) return <main className="main-content"><p>Loading...</p></main>;
-  if (error) return <main className="main-content"><p>{error}</p></main>;
+  if (loading)
+    return (
+      <main className="main-content">
+        <p className="edit-state">Loading...</p>
+      </main>
+    );
+  if (error)
+    return (
+      <main className="main-content">
+        <p className="edit-state">{error}</p>
+      </main>
+    );
 
   return (
     <main className="main-content pitch-page">
       <div className="edit-page-top">
         <h1 className="pitch-page-title">Edit Idea</h1>
-        <Link to={`/ideas/${id}`} className="edit-cancel-link">Cancel</Link>
+        <Link to={`/ideas/${id}`} className="edit-cancel-link">
+          Cancel
+        </Link>
       </div>
       <PitchForm existingIdea={idea} onSuccess={handleSuccess} />
     </main>

@@ -51,5 +51,9 @@
   margin-top: 4px;
 }
 
-.stat-roast { color: var(--coral); }
-.stat-defense { color: var(--teal); }
+.stat-roast {
+  color: var(--coral);
+}
+.stat-defense {
+  color: var(--teal);
+}

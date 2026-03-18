@@ -17,7 +17,7 @@ export default [
       'no-unused-vars': 'error',
       'no-var': 'error',
       'prefer-const': 'error',
-      'eqeqeq': ['error', 'always'],
+      eqeqeq: ['error', 'always'],
       'no-shadow': 'error',
       'no-use-before-define': ['error', { functions: false }],
       'no-console': 'off',

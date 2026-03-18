@@ -24,14 +24,20 @@ export default function AuthPage() {
           {isLogin ? (
             <>
               No account?{' '}
-              <button className="auth-toggle-btn" onClick={() => setIsLogin(false)}>
+              <button
+                className="auth-toggle-btn"
+                onClick={() => setIsLogin(false)}
+              >
                 Register
               </button>
             </>
           ) : (
             <>
               Already have an account?{' '}
-              <button className="auth-toggle-btn" onClick={() => setIsLogin(true)}>
+              <button
+                className="auth-toggle-btn"
+                onClick={() => setIsLogin(true)}
+              >
                 Log In
               </button>
             </>

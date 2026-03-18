@@ -26,7 +26,10 @@ export default function BackWidget({ idea, onBacked }) {
     try {
       const res = await fetch(`/api/ideas/${idea._id}/back`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${getToken()}` },
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${getToken()}`,
+        },
         body: JSON.stringify({ amount: parsed }),
       });
       const data = await res.json();
@@ -42,7 +45,11 @@ export default function BackWidget({ idea, onBacked }) {
   }
 
   if (!user) {
-    return <p className="back-msg"><a href="/auth">Log in</a> to invest RoastCoin</p>;
+    return (
+      <p className="back-msg">
+        <a href="/auth">Log in</a> to invest RoastCoin
+      </p>
+    );
   }
   if (isOwn) {
     return <p className="back-msg">You can&apos;t back your own idea</p>;
@@ -53,7 +60,9 @@ export default function BackWidget({ idea, onBacked }) {
 
   return (
     <form className="back-widget" onSubmit={handleSubmit}>
-      <p className="back-balance">Your balance: <strong>{user.roastCoinBalance} RC</strong></p>
+      <p className="back-balance">
+        Your balance: <strong>{user.roastCoinBalance} RC</strong>
+      </p>
       {error && <p className="back-error">{error}</p>}
       <div className="back-row">
         <input
@@ -76,7 +85,8 @@ export default function BackWidget({ idea, onBacked }) {
 BackWidget.propTypes = {
   idea: PropTypes.shape({
     _id: PropTypes.string.isRequired,
-    authorId: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
+    authorId: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
+      .isRequired,
     verdict: PropTypes.string,
   }).isRequired,
   onBacked: PropTypes.func.isRequired,

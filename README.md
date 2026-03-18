@@ -22,6 +22,7 @@ RoastMyIdea is a platform where users pitch startup ideas, side projects, or any
 ## Setup
 
 ### Prerequisites
+
 - Node.js v18+
 - MongoDB Atlas account
 

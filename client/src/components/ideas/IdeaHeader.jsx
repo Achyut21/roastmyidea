@@ -8,7 +8,8 @@ export default function IdeaHeader({ idea }) {
   const { user, getToken } = useAuth();
   const navigate = useNavigate();
   const isAuthor = user && user.id === idea.authorId.toString();
-  const canDelete = isAuthor && idea.totalRoastCoinInvested === 0 && !idea.verdict;
+  const canDelete =
+    isAuthor && idea.totalRoastCoinInvested === 0 && !idea.verdict;
 
   async function handleDelete() {
     if (!window.confirm('Delete this idea? This cannot be undone.')) return;
@@ -20,20 +21,29 @@ export default function IdeaHeader({ idea }) {
   }
 
   const postedDate = new Date(idea.createdAt).toLocaleDateString('en-US', {
-    month: 'short', day: 'numeric', year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
   });
 
   return (
     <div className="idea-header">
       <div className="idea-header-top">
-        <span className="idea-category">{CATEGORY_LABELS[idea.category] || idea.category}</span>
+        <span className="idea-category">
+          {CATEGORY_LABELS[idea.category] || idea.category}
+        </span>
         {isAuthor && (
           <div className="idea-header-actions">
             {!idea.verdict && (
-              <Link to={`/ideas/${idea._id}/edit`} className="idea-action-btn">Edit</Link>
+              <Link to={`/ideas/${idea._id}/edit`} className="idea-action-btn">
+                Edit
+              </Link>
             )}
             {canDelete && (
-              <button className="idea-action-btn idea-action-delete" onClick={handleDelete}>
+              <button
+                className="idea-action-btn idea-action-delete"
+                onClick={handleDelete}
+              >
                 Delete
               </button>
             )}
@@ -70,7 +80,8 @@ IdeaHeader.propTypes = {
     _id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     category: PropTypes.string.isRequired,
-    authorId: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
+    authorId: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
+      .isRequired,
     authorDisplayName: PropTypes.string.isRequired,
     pitch: PropTypes.string.isRequired,
     problem: PropTypes.string,

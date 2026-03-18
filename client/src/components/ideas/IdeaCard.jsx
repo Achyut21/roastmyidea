@@ -8,8 +8,14 @@ export default function IdeaCard({ idea }) {
   return (
     <Link to={`/ideas/${idea._id}`} className="idea-card">
       <div className="idea-card-top">
-        <span className="idea-card-category">{CATEGORY_LABELS[idea.category] || idea.category}</span>
-        <VerdictBadge verdict={idea.verdict} createdAt={idea.createdAt} compact />
+        <span className="idea-card-category">
+          {CATEGORY_LABELS[idea.category] || idea.category}
+        </span>
+        <VerdictBadge
+          verdict={idea.verdict}
+          createdAt={idea.createdAt}
+          compact
+        />
       </div>
       <h3 className="idea-card-title">{idea.title}</h3>
       <p className="idea-card-author">by {idea.authorDisplayName}</p>

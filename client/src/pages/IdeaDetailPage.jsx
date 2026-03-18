@@ -22,8 +22,18 @@ export default function IdeaDetailPage() {
       .finally(() => setLoading(false));
   }, [id]);
 
-  if (loading) return <main className="main-content"><p className="detail-state">Loading...</p></main>;
-  if (error) return <main className="main-content"><p className="detail-state">{error}</p></main>;
+  if (loading)
+    return (
+      <main className="main-content">
+        <p className="detail-state">Loading...</p>
+      </main>
+    );
+  if (error)
+    return (
+      <main className="main-content">
+        <p className="detail-state">{error}</p>
+      </main>
+    );
 
   return (
     <main className="main-content detail-content">
@@ -33,7 +43,9 @@ export default function IdeaDetailPage() {
         <div className="detail-stats">
           <span className="stat-roast">🔥 {idea.roastCount} Roasts</span>
           <span className="stat-defense">🛡️ {idea.defenseCount} Defenses</span>
-          <span className="stat-rc">💰 {idea.totalRoastCoinInvested} RC Invested</span>
+          <span className="stat-rc">
+            💰 {idea.totalRoastCoinInvested} RC Invested
+          </span>
         </div>
       </div>
       <BackSection idea={idea} />

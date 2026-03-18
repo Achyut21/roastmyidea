@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useAuth } from '../../context/AuthContext.jsx';
-import './LoginForm.css';
+import './RegisterForm.css';
 
 export default function RegisterForm({ onSuccess }) {
   const { login } = useAuth();

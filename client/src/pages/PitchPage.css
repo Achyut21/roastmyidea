@@ -1,4 +1,6 @@
-.pitch-page { max-width: 600px; }
+.pitch-page {
+  max-width: 600px;
+}
 
 .pitch-page-title {
   font-size: 24px;

@@ -1,59 +1,60 @@
-.back-widget {
+.auth-form {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 16px;
 }
 
-.back-balance {
-  font-size: 13px;
-  color: var(--text-secondary);
+.auth-title {
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--text-primary);
 }
 
-.back-row {
+.auth-label {
   display: flex;
-  gap: 8px;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
 }
 
-.back-input {
+.auth-input {
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   padding: 8px 12px;
   font-size: 14px;
   color: var(--text-primary);
-  width: 140px;
 }
 
-.back-input:focus {
+.auth-input:focus {
   outline: none;
   border-color: var(--indigo);
   box-shadow: 0 0 0 2px var(--indigo-light);
 }
 
-.back-btn {
+.auth-btn {
   background: var(--indigo);
   color: #fff;
   border: none;
   border-radius: var(--radius-sm);
-  padding: 8px 16px;
+  padding: 10px 16px;
   font-size: 14px;
   font-weight: 500;
+  margin-top: 4px;
 }
 
-.back-btn:hover:not(:disabled) {
+.auth-btn:hover:not(:disabled) {
   background: var(--indigo-dark);
 }
-.back-btn:disabled {
+
+.auth-btn:disabled {
   opacity: 0.6;
   cursor: not-allowed;
 }
 
-.back-error {
-  font-size: 13px;
+.auth-error {
+  font-size: 14px;
   color: var(--coral);
-}
-
-.back-msg {
-  font-size: 13px;
-  color: var(--text-secondary);
 }
