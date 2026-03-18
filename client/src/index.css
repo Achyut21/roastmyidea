@@ -39,3 +39,9 @@ select {
   font-family: inherit;
   font-size: 14px;
 }
+
+.main-content {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 32px 24px;
+}
