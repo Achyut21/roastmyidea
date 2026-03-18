@@ -1,0 +1,93 @@
+.idea-header {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.idea-header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.idea-category {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--indigo-text);
+  background: var(--indigo-light);
+  padding: 2px 8px;
+  border-radius: var(--radius-xs);
+}
+
+.idea-header-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.idea-action-btn {
+  font-size: 13px;
+  color: var(--text-secondary);
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xs);
+  padding: 4px 10px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.idea-action-btn:hover {
+  border-color: var(--indigo);
+  color: var(--indigo);
+  text-decoration: none;
+}
+
+.idea-action-delete:hover {
+  border-color: var(--coral);
+  color: var(--coral);
+}
+
+.idea-title {
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.idea-meta {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.idea-author-link {
+  color: var(--indigo);
+  text-decoration: none;
+}
+
+.idea-author-link:hover {
+  text-decoration: underline;
+}
+
+.idea-pitch {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--text-primary);
+}
+
+.idea-section {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.idea-section-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.idea-section-text {
+  font-size: 14px;
+  color: var(--text-primary);
+  line-height: 1.5;
+}

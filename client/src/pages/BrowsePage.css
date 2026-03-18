@@ -1,0 +1,43 @@
+.browse-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.browse-title {
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.browse-pitch-btn {
+  background: var(--indigo);
+  color: #fff;
+  border-radius: var(--radius-sm);
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.browse-pitch-btn:hover {
+  background: var(--indigo-dark);
+  text-decoration: none;
+}
+
+.browse-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.browse-state {
+  margin-top: 32px;
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+.browse-error {
+  color: var(--coral);
+}

@@ -1,4 +1,29 @@
-@import './variables.css';
+:root {
+  --bg-page: #f8f8fa;
+  --bg-card: #ffffff;
+  --border: #e2e2e8;
+  --text-primary: #1a1a2e;
+  --text-secondary: #6b6b80;
+
+  --indigo: #5b5bd6;
+  --indigo-light: #eeedfe;
+  --indigo-dark: #3a3a8c;
+  --indigo-text: #2e2e6e;
+
+  --coral: #e54d2e;
+  --coral-light: #fef0ec;
+  --coral-dark: #b83a1e;
+  --coral-text: #8c2a14;
+
+  --teal: #06b6d4;
+  --teal-light: #e6fafb;
+  --teal-dark: #0891a8;
+  --teal-text: #065e6c;
+
+  --radius: 8px;
+  --radius-sm: 6px;
+  --radius-xs: 4px;
+}
 
 *,
 *::before,
@@ -44,4 +69,10 @@ select {
   max-width: 900px;
   margin: 0 auto;
   padding: 32px 24px;
+}
+
+@media (max-width: 600px) {
+  .main-content {
+    padding: 16px;
+  }
 }

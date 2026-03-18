@@ -1,7 +1,11 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext.jsx';
 import Navbar from './components/shared/Navbar.jsx';
+import BrowsePage from './pages/BrowsePage.jsx';
 import AuthPage from './pages/AuthPage.jsx';
+import IdeaDetailPage from './pages/IdeaDetailPage.jsx';
+import PitchPage from './pages/PitchPage.jsx';
+import EditIdeaPage from './pages/EditIdeaPage.jsx';
 
 export default function App() {
   return (
@@ -9,8 +13,11 @@ export default function App() {
       <BrowserRouter>
         <Navbar />
         <Routes>
-          <Route path="/" element={<main className="main-content">Browse coming soon</main>} />
+          <Route path="/" element={<BrowsePage />} />
           <Route path="/auth" element={<AuthPage />} />
+          <Route path="/ideas/:id" element={<IdeaDetailPage />} />
+          <Route path="/ideas/:id/edit" element={<EditIdeaPage />} />
+          <Route path="/pitch" element={<PitchPage />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
