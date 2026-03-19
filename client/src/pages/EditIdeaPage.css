@@ -1,20 +1,3 @@
-.edit-page-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 24px;
-}
-
-.edit-cancel-link {
-  font-size: 14px;
-  color: var(--text-secondary);
-  text-decoration: none;
-}
-
-.edit-cancel-link:hover {
-  color: var(--text-primary);
-}
-
 .edit-state {
   font-size: 14px;
   color: var(--text-secondary);
