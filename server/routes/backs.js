@@ -74,7 +74,19 @@ router.get('/ideas/:id/backs', async (req, res) => {
     backerDisplayName: userMap[b.backerId.toString()] || 'Unknown',
   }));
 
-  res.json({ backs: result });
+  const aggregated = Object.values(
+    result.reduce((acc, b) => {
+      const key = b.backerId.toString();
+      if (acc[key]) {
+        acc[key].amount += b.amount;
+      } else {
+        acc[key] = { ...b };
+      }
+      return acc;
+    }, {})
+  ).sort((a, b) => b.amount - a.amount);
+
+  res.json({ backs: aggregated });
 });
 
 router.get('/users/:id/backs', async (req, res) => {
@@ -102,7 +114,19 @@ router.get('/users/:id/backs', async (req, res) => {
     verdict: ideaMap[b.ideaId.toString()]?.verdict || null,
   }));
 
-  res.json({ backs: result });
+  const aggregated = Object.values(
+    result.reduce((acc, b) => {
+      const key = b.ideaId.toString();
+      if (acc[key]) {
+        acc[key].amount += b.amount;
+      } else {
+        acc[key] = { ...b };
+      }
+      return acc;
+    }, {})
+  ).sort((a, b) => b.amount - a.amount);
+
+  res.json({ backs: aggregated });
 });
 
 export default router;

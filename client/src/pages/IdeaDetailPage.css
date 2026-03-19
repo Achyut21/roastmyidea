@@ -1,50 +1,82 @@
-.detail-content {
-  max-width: 700px;
+.detail-layout {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 32px;
+  align-items: start;
+}
+
+.detail-left {
   display: flex;
   flex-direction: column;
   gap: 24px;
 }
 
-.detail-status-bar {
+.detail-sidebar {
+  position: sticky;
+  top: 88px;
+}
+
+.detail-sidebar-inner {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: 16px;
-  flex-wrap: wrap;
-  padding: 12px 16px;
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  max-width: 100%;
-  overflow: hidden;
+  padding: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
 }
 
+.detail-verdict-row {
+  display: flex;
+  align-items: center;
+}
+
+/* Stat grid inside sidebar */
 .detail-stats {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  font-size: 14px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  padding: 12px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
 }
 
-.detail-stats .stat-roast,
-.detail-stats .stat-defense,
-.detail-stats .stat-rc {
+.detail-stat {
   display: flex;
+  flex-direction: column;
   align-items: center;
   gap: 4px;
 }
 
-.detail-stats .stat-roast {
+.detail-stat-value {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.detail-stat-label {
+  font-size: 11px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.stat-roast {
   color: var(--coral);
 }
-.detail-stats .stat-defense {
+.stat-defense {
   color: var(--teal);
 }
-.detail-stats .stat-rc {
+.stat-rc {
   color: var(--text-secondary);
 }
 
+/* Placeholder for roast section */
 .roast-section-placeholder {
-  padding: 24px;
+  padding: 32px 24px;
   background: var(--bg-card);
   border: 1px dashed var(--border);
   border-radius: var(--radius);
@@ -73,4 +105,14 @@
 
 .detail-back:hover {
   color: var(--text-primary);
+}
+
+@media (max-width: 768px) {
+  .detail-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .detail-sidebar {
+    position: static;
+  }
 }

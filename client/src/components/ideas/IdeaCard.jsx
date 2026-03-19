@@ -8,24 +8,27 @@ import './IdeaCard.css';
 export default function IdeaCard({ idea }) {
   return (
     <Link to={`/ideas/${idea._id}`} className="idea-card">
-      <div className="idea-card-top">
-        <span className="idea-card-category">
-          {CATEGORY_LABELS[idea.category] || idea.category}
-        </span>
-        <VerdictBadge verdict={idea.verdict} createdAt={idea.createdAt} compact />
-      </div>
+      <span className="idea-card-category">
+        {CATEGORY_LABELS[idea.category] || idea.category}
+      </span>
       <h3 className="idea-card-title">{idea.title}</h3>
       <p className="idea-card-author">by {idea.authorDisplayName}</p>
-      <div className="idea-card-stats">
-        <span className="stat-roast">
-          <Flame size={14} aria-hidden="true" /> {idea.roastCount}
-        </span>
-        <span className="stat-defense">
-          <Shield size={14} aria-hidden="true" /> {idea.defenseCount}
-        </span>
-        <span className="stat-rc">
-          <Coins size={14} aria-hidden="true" /> {idea.totalRoastCoinInvested} RC
-        </span>
+      <div className="idea-card-footer">
+        <div className="idea-card-stats">
+          <span className="stat-roast">
+            <Flame size={13} aria-hidden="true" />
+            {idea.roastCount}
+          </span>
+          <span className="stat-defense">
+            <Shield size={13} aria-hidden="true" />
+            {idea.defenseCount}
+          </span>
+          <span className="stat-rc">
+            <Coins size={13} aria-hidden="true" />
+            {idea.totalRoastCoinInvested} RC
+          </span>
+        </div>
+        <VerdictBadge verdict={idea.verdict} createdAt={idea.createdAt} compact />
       </div>
     </Link>
   );

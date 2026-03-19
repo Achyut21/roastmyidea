@@ -42,31 +42,52 @@ export default function IdeaDetailPage() {
     );
 
   return (
-    <main className="main-content detail-content">
+    <main className="main-content">
       <button className="detail-back" onClick={() => navigate(-1)}>
         <ArrowLeft size={14} aria-hidden="true" />
         Back
       </button>
-      <IdeaHeader idea={idea} />
-      <div className="detail-status-bar">
-        <VerdictBadge verdict={idea.verdict} createdAt={idea.createdAt} />
-        <div className="detail-stats">
-          <span className="stat-roast">
-            <Flame size={15} aria-hidden="true" /> {idea.roastCount} Roasts
-          </span>
-          <span className="stat-defense">
-            <Shield size={15} aria-hidden="true" /> {idea.defenseCount} Defenses
-          </span>
-          <span className="stat-rc">
-            <Coins size={15} aria-hidden="true" /> {idea.totalRoastCoinInvested} RC
-            Invested
-          </span>
+
+      <div className="detail-layout">
+        <div className="detail-left">
+          <IdeaHeader idea={idea} />
+          {/* needs RoastSection */}
+          <div className="roast-section-placeholder">
+            <p>Roasts and defenses load here</p>
+          </div>
         </div>
-      </div>
-      <BackSection idea={idea} />
-      {/* needs RoastSection */}
-      <div className="roast-section-placeholder">
-        <p>Roasts and defenses load here</p>
+
+        <aside className="detail-sidebar">
+          <div className="detail-sidebar-inner">
+            <div className="detail-verdict-row">
+              <VerdictBadge verdict={idea.verdict} createdAt={idea.createdAt} />
+            </div>
+            <div className="detail-stats">
+              <div className="detail-stat">
+                <span className="detail-stat-value stat-roast">
+                  <Flame size={15} aria-hidden="true" />
+                  {idea.roastCount}
+                </span>
+                <span className="detail-stat-label">Roasts</span>
+              </div>
+              <div className="detail-stat">
+                <span className="detail-stat-value stat-defense">
+                  <Shield size={15} aria-hidden="true" />
+                  {idea.defenseCount}
+                </span>
+                <span className="detail-stat-label">Defenses</span>
+              </div>
+              <div className="detail-stat">
+                <span className="detail-stat-value stat-rc">
+                  <Coins size={15} aria-hidden="true" />
+                  {idea.totalRoastCoinInvested}
+                </span>
+                <span className="detail-stat-label">RC Invested</span>
+              </div>
+            </div>
+            <BackSection idea={idea} />
+          </div>
+        </aside>
       </div>
     </main>
   );

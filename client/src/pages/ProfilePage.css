@@ -2,26 +2,131 @@
   max-width: 700px;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 28px;
 }
 
-.profile-header {
+.page-back {
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 16px;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  padding: 0;
+  margin-bottom: 4px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+.page-back:hover {
+  color: var(--text-primary);
+}
+
+.profile-hero {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 24px;
+  background-color: rgba(255, 255, 255, 0.6);
+  background-clip: padding-box;
+  backdrop-filter: blur(8px) saturate(100%) contrast(100%);
+  -webkit-backdrop-filter: blur(8px) saturate(100%) contrast(100%);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
   flex-wrap: wrap;
+}
+
+.profile-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--indigo-light);
+  color: var(--indigo-text);
+  font-size: 20px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  letter-spacing: -0.02em;
+}
+
+.profile-hero-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
 .profile-name {
   font-size: 24px;
-  font-weight: 500;
+  font-weight: 700;
+  letter-spacing: -0.02em;
 }
 
 .profile-joined {
   font-size: 13px;
   color: var(--text-secondary);
-  margin-top: 4px;
+}
+
+.profile-title-badges {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 2px;
+}
+
+.profile-title-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 99px;
+}
+
+.badge-roast {
+  background: var(--coral-light);
+  color: var(--coral-text);
+}
+.badge-defend {
+  background: var(--teal-light);
+  color: var(--teal-text);
+}
+.badge-pitch {
+  background: var(--indigo-light);
+  color: var(--indigo-text);
+}
+
+.profile-rc-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 12px 20px;
+  background: var(--indigo-light);
+  border-radius: var(--radius);
+  text-align: center;
+}
+
+.profile-rc-icon {
+  color: var(--indigo);
+}
+
+.profile-rc-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--indigo-text);
+  letter-spacing: -0.02em;
+}
+
+.profile-rc-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--indigo-text);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 .profile-tabs {
@@ -41,34 +146,77 @@
   border-bottom: 2px solid transparent;
   margin-bottom: -1px;
 }
-
 .profile-tab:hover {
   color: var(--text-primary);
 }
-
 .profile-tab.active {
   color: var(--indigo);
   border-bottom-color: var(--indigo);
 }
 
+/* Stats */
+.profile-stats-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.profile-stat-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.profile-stat-group-title {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary);
+}
+
+.profile-stat-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.profile-stat-card {
+  flex: 1;
+  min-width: 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.profile-stat-value {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+
+.profile-stat-label {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.accent-teal .profile-stat-value {
+  color: var(--teal-dark);
+}
+.accent-coral .profile-stat-value {
+  color: var(--coral);
+}
+.accent-indigo .profile-stat-value {
+  color: var(--indigo);
+}
+
 .profile-state {
   font-size: 14px;
   color: var(--text-secondary);
-}
-
-.page-back {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  background: none;
-  border: none;
-  padding: 0;
-  margin-bottom: 20px;
-  font-size: 13px;
-  color: var(--text-secondary);
-  cursor: pointer;
-}
-
-.page-back:hover {
-  color: var(--text-primary);
 }

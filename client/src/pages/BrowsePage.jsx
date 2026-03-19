@@ -103,18 +103,30 @@ export default function BrowsePage() {
 
   return (
     <main className="main-content">
-      <div className="browse-top">
-        <h1 className="browse-title">Ideas</h1>
+      <section className="browse-hero">
+        <div className="browse-hero-text">
+          <h1 className="browse-hero-title">
+            Pitch your idea.
+            <br />
+            The internet decides.
+          </h1>
+          <p className="browse-hero-sub">
+            Submit your startup idea, get roasted or defended by the community, and see if
+            it survives 7 days.
+          </p>
+        </div>
         {user ? (
           <Link to="/pitch" className="browse-pitch-btn">
             + Pitch Your Idea
           </Link>
         ) : (
           <Link to="/auth" className="browse-pitch-btn">
-            Log in to Pitch
+            Start Pitching
           </Link>
         )}
-      </div>
+      </section>
+
+      <div className="browse-divider" />
 
       <form className="search-bar" onSubmit={handleSearchSubmit}>
         <input
