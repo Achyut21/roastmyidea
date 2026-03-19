@@ -69,8 +69,8 @@ body {
   font-weight: 400;
   line-height: 1.5;
   color: var(--text-primary);
-  background: radial-gradient(125% 125% at 50% 90%, #fff 60%, #c7d2fe 100%);
-  background-attachment: fixed;
+  background-color: var(--bg-page);
+  background-attachment: initial;
   min-height: 100vh;
   overflow-wrap: break-word;
 }

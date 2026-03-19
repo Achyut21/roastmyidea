@@ -1,7 +1,7 @@
 .footer {
   margin-top: auto;
   border-top: 1px solid var(--border);
-  background: transparent;
+  background: var(--bg-page);
   padding: 20px 0;
 }
 
