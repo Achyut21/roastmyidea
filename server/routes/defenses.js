@@ -36,6 +36,7 @@ router.post('/roasts/:id/defenses', requireAuth, async (req, res) => {
   if (existing) return res.status(400).json({ error: 'You already defended against this roast' });
   const result = await db.collection('defenses').insertOne({ ideaId: roast.ideaId, roastId, authorId, content: content.trim(), upvotedBy: [], upvoteCount: 0, deleted: false, createdAt: new Date() });
   await db.collection('ideas').updateOne({ _id: roast.ideaId }, { $inc: { defenseCount: 1 } });
+  await db.collection('roasts').updateOne({ _id: roastId }, { $inc: { defenseCount: 1 } });
   const defense = await db.collection('defenses').findOne({ _id: result.insertedId });
   defense.authorDisplayName = req.user.displayName;
   res.status(201).json({ defense });
@@ -65,6 +66,7 @@ router.delete('/defenses/:id', requireAuth, async (req, res) => {
   if (defense.authorId.toString() !== req.user._id.toString()) return res.status(403).json({ error: 'Not your defense' });
   await db.collection('defenses').updateOne({ _id: defenseId }, { $set: { deleted: true } });
   await db.collection('ideas').updateOne({ _id: defense.ideaId }, { $inc: { defenseCount: -1 } });
+  await db.collection('roasts').updateOne({ _id: defense.roastId }, { $inc: { defenseCount: -1 } });
   res.json({ message: 'Defense deleted' });
 });
 

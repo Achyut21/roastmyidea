@@ -13,7 +13,7 @@
   gap: 5px;
   font-size: 0.75rem;
   font-weight: 600;
-  color: var(--text-muted);
+  color: var(--text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
@@ -36,14 +36,14 @@
   padding: 7px 10px;
   font-size: 0.8rem;
   font-family: inherit;
-  background: var(--surface);
+  background: var(--bg-card);
   color: var(--text-primary);
   box-sizing: border-box;
 }
 
 .defense-textarea:focus {
   outline: none;
-  border-color: var(--accent);
+  border-color: var(--teal);
 }
 
 .defense-form-footer {
@@ -55,7 +55,7 @@
 
 .defense-char-count {
   font-size: 0.7rem;
-  color: var(--text-muted);
+  color: var(--text-secondary);
   margin-right: auto;
 }
 
@@ -66,9 +66,12 @@
 }
 
 .defense-submit-btn {
-  background: var(--surface);
-  border: 1px solid var(--accent);
-  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--teal);
+  border: none;
+  color: #fff;
   border-radius: 6px;
   padding: 5px 12px;
   font-size: 0.75rem;
@@ -83,18 +86,18 @@
 
 .defense-login-msg {
   font-size: 0.8rem;
-  color: var(--text-muted);
+  color: var(--text-secondary);
   margin: 0;
 }
 
 .defense-login-msg a {
-  color: var(--accent);
+  color: var(--coral);
   text-decoration: none;
 }
 
 .defense-state {
   font-size: 0.8rem;
-  color: var(--text-muted);
+  color: var(--text-secondary);
   margin: 0;
   padding-left: 4px;
 }
@@ -121,7 +124,7 @@
 }
 
 .defense-icon {
-  color: var(--accent);
+  color: var(--coral);
 }
 
 .defense-author {
@@ -131,13 +134,13 @@
 }
 
 .defense-dot {
-  color: var(--text-muted);
+  color: var(--text-secondary);
   font-size: 0.7rem;
 }
 
 .defense-time {
   font-size: 0.7rem;
-  color: var(--text-muted);
+  color: var(--text-secondary);
 }
 
 .defense-card-actions {
@@ -150,7 +153,7 @@
   background: none;
   border: none;
   font-size: 0.7rem;
-  color: var(--text-muted);
+  color: var(--text-secondary);
   cursor: pointer;
   padding: 0;
 }
@@ -183,13 +186,13 @@
   border-radius: 6px;
   padding: 3px 7px;
   font-size: 0.7rem;
-  color: var(--text-muted);
+  color: var(--text-secondary);
   cursor: pointer;
 }
 
 .defense-upvote-btn.upvoted {
-  border-color: var(--accent);
-  color: var(--accent);
+  border-color: var(--teal);
+  color: var(--teal);
 }
 
 .defense-upvote-btn:disabled {
@@ -201,4 +204,15 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
+}
+
+.defense-confirm-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.defense-confirm-text {
+  font-size: 12px;
+  color: var(--text-secondary);
 }

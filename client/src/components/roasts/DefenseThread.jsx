@@ -5,7 +5,7 @@ import { useAuth } from '../../context/AuthContext.jsx';
 import { useToast } from '../../context/ToastContext.jsx';
 import './DefenseThread.css';
 
-export default function DefenseThread({ roast, idea }) {
+export default function DefenseThread({ roast, idea, onCountChange }) {
   const { user, getToken } = useAuth();
   const { showToast } = useToast();
   const [defenses, setDefenses] = useState([]);
@@ -15,6 +15,7 @@ export default function DefenseThread({ roast, idea }) {
   const [submitting, setSubmitting] = useState(false);
   const [editingId, setEditingId] = useState(null);
   const [editContent, setEditContent] = useState('');
+  const [confirmDeleteId, setConfirmDeleteId] = useState(null);
 
   const isClosed = idea.verdict !== null;
   const isRoastAuthor = user && user.id === roast.authorId?.toString();
@@ -22,10 +23,14 @@ export default function DefenseThread({ roast, idea }) {
   useEffect(() => {
     fetch(`/api/roasts/${roast._id}/defenses`)
       .then((r) => r.json())
-      .then((data) => setDefenses(data.defenses || []))
+      .then((data) => {
+        const loaded = data.defenses || [];
+        setDefenses(loaded);
+        if (onCountChange) onCountChange(loaded.length);
+      })
       .catch(() => {})
       .finally(() => setLoading(false));
-  }, [roast._id]);
+  }, [roast._id, onCountChange]);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -45,9 +50,13 @@ export default function DefenseThread({ roast, idea }) {
       });
       const data = await res.json();
       if (!res.ok) return setError(data.error || 'Something went wrong');
-      setDefenses((prev) => [data.defense, ...prev]);
+      setDefenses((prev) => {
+        const next = [data.defense, ...prev];
+        if (onCountChange) onCountChange(next.length);
+        return next;
+      });
       setContent('');
-      showToast('Defense posted 🛡');
+      showToast('Defense posted!');
     } catch {
       setError('Something went wrong. Try again.');
     } finally {
@@ -106,14 +115,18 @@ export default function DefenseThread({ roast, idea }) {
   }
 
   async function handleDelete(defense) {
-    if (!confirm('Delete this defense?')) return;
     try {
       const res = await fetch(`/api/defenses/${defense._id}`, {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${getToken()}` },
       });
       if (res.ok) {
-        setDefenses((prev) => prev.filter((d) => d._id !== defense._id));
+        setDefenses((prev) => {
+          const next = prev.filter((d) => d._id !== defense._id);
+          if (onCountChange) onCountChange(next.length);
+          return next;
+        });
+        setConfirmDeleteId(null);
         showToast('Defense deleted');
       }
     } catch {
@@ -140,7 +153,7 @@ export default function DefenseThread({ roast, idea }) {
             <span className="defense-char-count">{content.length}/500</span>
             {error && <p className="defense-form-error">{error}</p>}
             <button type="submit" className="defense-submit-btn" disabled={submitting}>
-              {submitting ? 'Posting...' : '🛡 Defend'}
+              {submitting ? 'Posting...' : <><Shield size={13} aria-hidden="true" /> Defend</>}
             </button>
           </div>
         </form>
@@ -175,9 +188,17 @@ export default function DefenseThread({ roast, idea }) {
                     >
                       Edit
                     </button>
-                    <button className="defense-action-btn danger" onClick={() => handleDelete(defense)}>
-                      Delete
-                    </button>
+                    {confirmDeleteId !== defense._id ? (
+                      <button className="defense-action-btn danger" onClick={() => setConfirmDeleteId(defense._id)}>
+                        Delete
+                      </button>
+                    ) : (
+                      <span className="defense-confirm-row">
+                        <span className="defense-confirm-text">Sure?</span>
+                        <button className="defense-action-btn danger" onClick={() => handleDelete(defense)}>Yes</button>
+                        <button className="defense-action-btn" onClick={() => setConfirmDeleteId(null)}>Cancel</button>
+                      </span>
+                    )}
                   </div>
                 )}
               </div>
@@ -225,4 +246,7 @@ DefenseThread.propTypes = {
     _id: PropTypes.string.isRequired,
     verdict: PropTypes.string,
   }).isRequired,
+  onCountChange: PropTypes.func,
 };
+
+DefenseThread.defaultProps = { onCountChange: null };

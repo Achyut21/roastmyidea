@@ -32,7 +32,7 @@ router.post('/ideas/:id/roasts', requireAuth, async (req, res) => {
   if (idea.authorId.toString() === authorId.toString()) return res.status(403).json({ error: "You can't roast your own idea" });
   const existing = await db.collection('roasts').findOne({ ideaId, authorId, deleted: false });
   if (existing) return res.status(400).json({ error: 'You already roasted this idea' });
-  const result = await db.collection('roasts').insertOne({ ideaId, authorId, content: content.trim(), upvotedBy: [], upvoteCount: 0, deleted: false, createdAt: new Date() });
+  const result = await db.collection('roasts').insertOne({ ideaId, authorId, content: content.trim(), upvotedBy: [], upvoteCount: 0, defenseCount: 0, deleted: false, createdAt: new Date() });
   await db.collection('ideas').updateOne({ _id: ideaId }, { $inc: { roastCount: 1 } });
   const roast = await db.collection('roasts').findOne({ _id: result.insertedId });
   roast.authorDisplayName = req.user.displayName;

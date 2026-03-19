@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { ThumbsUp, Flame } from 'lucide-react';
+import { ThumbsUp, Flame, Shield } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext.jsx';
 import { useToast } from '../../context/ToastContext.jsx';
 import DefenseThread from './DefenseThread.jsx';
@@ -15,6 +15,8 @@ export default function RoastCard({ roast, idea, onUpdate, onDelete }) {
   const [saving, setSaving] = useState(false);
   const [upvoting, setUpvoting] = useState(false);
   const [showDefenses, setShowDefenses] = useState(false);
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  const [defenseCount, setDefenseCount] = useState(roast.defenseCount || 0);
 
   const isOwn = user && user.id === roast.authorId?.toString();
   const hasUpvoted = user && roast.upvotedBy?.some((id) => id.toString() === user.id);
@@ -73,7 +75,6 @@ export default function RoastCard({ roast, idea, onUpdate, onDelete }) {
   }
 
   async function handleDelete() {
-    if (!confirm('Delete this roast?')) return;
     try {
       const res = await fetch(`/api/roasts/${roast._id}`, {
         method: 'DELETE',
@@ -101,13 +102,21 @@ export default function RoastCard({ roast, idea, onUpdate, onDelete }) {
         </span>
         {isOwn && !isClosed && (
           <div className="roast-card-actions">
-            <button className="roast-card-action-btn" onClick={() => setEditing((v) => !v)}>
-              {editing ? 'Cancel' : 'Edit'}
-            </button>
-            <button className="roast-card-action-btn danger" onClick={handleDelete}>
-              Delete
-            </button>
-          </div>
+              <button className="roast-card-action-btn" onClick={() => setEditing((v) => !v)}>
+                {editing ? 'Cancel' : 'Edit'}
+              </button>
+              {!confirmDelete ? (
+                <button className="roast-card-action-btn danger" onClick={() => setConfirmDelete(true)}>
+                  Delete
+                </button>
+              ) : (
+                <span className="roast-confirm-row">
+                  <span className="roast-confirm-text">Sure?</span>
+                  <button className="roast-card-action-btn danger" onClick={handleDelete}>Yes</button>
+                  <button className="roast-card-action-btn" onClick={() => setConfirmDelete(false)}>Cancel</button>
+                </span>
+              )}
+            </div>
         )}
       </div>
       {editing ? (
@@ -141,10 +150,11 @@ export default function RoastCard({ roast, idea, onUpdate, onDelete }) {
           className="roast-defend-toggle"
           onClick={() => setShowDefenses((v) => !v)}
         >
-          🛡 {showDefenses ? 'Hide' : 'Defend'} ({roast.defenseCount || 0})
+          <Shield size={13} aria-hidden="true" />
+          {showDefenses ? 'Hide' : 'Defend'} ({defenseCount})
         </button>
       </div>
-      {showDefenses && <DefenseThread roast={roast} idea={idea} />}
+      {showDefenses && <DefenseThread roast={roast} idea={idea} onCountChange={setDefenseCount} />}
     </article>
   );
 }

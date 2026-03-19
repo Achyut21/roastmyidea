@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { Flame } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext.jsx';
 import { useToast } from '../../context/ToastContext.jsx';
 import RoastCard from './RoastCard.jsx';
@@ -45,7 +46,7 @@ export default function RoastSection({ idea }) {
       if (!res.ok) return setError(data.error || 'Something went wrong');
       setRoasts((prev) => [data.roast, ...prev]);
       setContent('');
-      showToast('Roast posted 🔥');
+      showToast('Roast posted!');
     } catch {
       setError('Something went wrong. Try again.');
     } finally {
@@ -78,7 +79,7 @@ export default function RoastSection({ idea }) {
             <span className="roast-char-count">{content.length}/500</span>
             {error && <p className="roast-form-error">{error}</p>}
             <button type="submit" className="roast-submit-btn" disabled={submitting}>
-              {submitting ? 'Posting...' : '🔥 Post Roast'}
+              {submitting ? 'Posting...' : <><Flame size={13} aria-hidden="true" /> Post Roast</>}
             </button>
           </div>
         </form>

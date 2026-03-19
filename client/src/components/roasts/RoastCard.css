@@ -2,7 +2,7 @@
   border: 1px solid var(--border);
   border-radius: 10px;
   padding: 14px;
-  background: var(--surface);
+  background: var(--bg-card);
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -28,13 +28,13 @@
 }
 
 .roast-card-dot {
-  color: var(--text-muted);
+  color: var(--text-secondary);
   font-size: 0.75rem;
 }
 
 .roast-card-time {
   font-size: 0.75rem;
-  color: var(--text-muted);
+  color: var(--text-secondary);
 }
 
 .roast-card-actions {
@@ -47,7 +47,7 @@
   background: none;
   border: none;
   font-size: 0.75rem;
-  color: var(--text-muted);
+  color: var(--text-secondary);
   cursor: pointer;
   padding: 0;
 }
@@ -82,13 +82,13 @@
   border-radius: 6px;
   padding: 4px 8px;
   font-size: 0.75rem;
-  color: var(--text-muted);
+  color: var(--text-secondary);
   cursor: pointer;
 }
 
 .roast-upvote-btn.upvoted {
-  border-color: var(--accent);
-  color: var(--accent);
+  border-color: var(--coral);
+  color: var(--coral);
 }
 
 .roast-upvote-btn:disabled {
@@ -97,22 +97,36 @@
 }
 
 .roast-defend-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
   background: none;
   border: 1px solid var(--border);
   border-radius: 6px;
   padding: 4px 10px;
   font-size: 0.75rem;
-  color: var(--text-muted);
+  color: var(--text-secondary);
   cursor: pointer;
 }
 
 .roast-defend-toggle:hover {
   color: var(--text-primary);
-  border-color: var(--text-muted);
+  border-color: var(--text-secondary);
 }
 
 .roast-edit-area {
   display: flex;
   flex-direction: column;
   gap: 8px;
+}
+
+.roast-confirm-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.roast-confirm-text {
+  font-size: 12px;
+  color: var(--text-secondary);
 }
