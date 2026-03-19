@@ -1,0 +1,204 @@
+.defense-thread {
+  border-top: 1px solid var(--border);
+  padding-top: 12px;
+  margin-top: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.defense-thread-label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.defense-form {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: var(--bg);
+  border: 1px dashed var(--border);
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.defense-textarea {
+  width: 100%;
+  resize: vertical;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 7px 10px;
+  font-size: 0.8rem;
+  font-family: inherit;
+  background: var(--surface);
+  color: var(--text-primary);
+  box-sizing: border-box;
+}
+
+.defense-textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.defense-form-footer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.defense-char-count {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  margin-right: auto;
+}
+
+.defense-form-error {
+  font-size: 0.75rem;
+  color: var(--error, #e53e3e);
+  margin: 0;
+}
+
+.defense-submit-btn {
+  background: var(--surface);
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  border-radius: 6px;
+  padding: 5px 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.defense-submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.defense-login-msg {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.defense-login-msg a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.defense-state {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin: 0;
+  padding-left: 4px;
+}
+
+.defense-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-left: 12px;
+  border-left: 2px solid var(--border);
+}
+
+.defense-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.defense-card-header {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.defense-icon {
+  color: var(--accent);
+}
+
+.defense-author {
+  font-size: 0.775rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.defense-dot {
+  color: var(--text-muted);
+  font-size: 0.7rem;
+}
+
+.defense-time {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.defense-card-actions {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.defense-action-btn {
+  background: none;
+  border: none;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 0;
+}
+
+.defense-action-btn:hover {
+  color: var(--text-primary);
+}
+
+.defense-action-btn.danger:hover {
+  color: var(--error, #e53e3e);
+}
+
+.defense-content {
+  font-size: 0.825rem;
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.defense-card-footer {
+  display: flex;
+}
+
+.defense-upvote-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 3px 7px;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.defense-upvote-btn.upvoted {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.defense-upvote-btn:disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+
+.defense-edit-area {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
