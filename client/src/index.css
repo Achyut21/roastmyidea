@@ -131,3 +131,7 @@ select {
   display: flex;
   flex-direction: column;
 }
+
+.app-layout > * {
+  width: 100%;
+}
