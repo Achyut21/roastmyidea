@@ -1,0 +1,98 @@
+.roast-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.roast-section-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+  color: var(--text-primary);
+}
+
+.roast-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px;
+}
+
+.roast-textarea {
+  width: 100%;
+  resize: vertical;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-size: 0.875rem;
+  font-family: inherit;
+  background: var(--bg);
+  color: var(--text-primary);
+  box-sizing: border-box;
+}
+
+.roast-textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.roast-form-footer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.roast-char-count {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-right: auto;
+}
+
+.roast-form-error {
+  font-size: 0.8rem;
+  color: var(--error, #e53e3e);
+  margin: 0;
+}
+
+.roast-submit-btn {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 14px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.roast-submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.roast-login-msg {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.roast-login-msg a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.roast-state {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.roast-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}

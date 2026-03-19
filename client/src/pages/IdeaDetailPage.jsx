@@ -4,6 +4,7 @@ import { Flame, Shield, Coins, ArrowLeft } from 'lucide-react';
 import IdeaHeader from '../components/ideas/IdeaHeader.jsx';
 import VerdictBadge from '../components/ideas/VerdictBadge.jsx';
 import BackSection from '../components/backs/BackSection.jsx';
+import RoastSection from '../components/roasts/RoastSection.jsx';
 import './IdeaDetailPage.css';
 
 export default function IdeaDetailPage() {
@@ -51,10 +52,7 @@ export default function IdeaDetailPage() {
       <div className="detail-layout">
         <div className="detail-left">
           <IdeaHeader idea={idea} />
-          {/* needs RoastSection */}
-          <div className="roast-section-placeholder">
-            <p>Roasts and defenses load here</p>
-          </div>
+          <RoastSection idea={idea} />
         </div>
 
         <aside className="detail-sidebar">
