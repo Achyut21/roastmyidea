@@ -15,8 +15,7 @@ export default function BackerList({ ideaId, refreshKey }) {
   }, [ideaId, refreshKey]);
 
   if (loading) return null;
-  if (backs.length === 0)
-    return <p className="backers-empty">No backers yet</p>;
+  if (backs.length === 0) return <p className="backers-empty">No backers yet</p>;
 
   return (
     <div className="backer-list">

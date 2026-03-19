@@ -46,15 +46,9 @@ router.get('/:id/profile', async (req, res) => {
     defenseUpvotesAgg,
   ] = await Promise.all([
     db.collection('ideas').countDocuments({ authorId: userId }),
-    db
-      .collection('ideas')
-      .countDocuments({ authorId: userId, verdict: 'fireproof' }),
-    db
-      .collection('ideas')
-      .countDocuments({ authorId: userId, verdict: 'torched' }),
-    db
-      .collection('roasts')
-      .countDocuments({ authorId: userId, deleted: { $ne: true } }),
+    db.collection('ideas').countDocuments({ authorId: userId, verdict: 'fireproof' }),
+    db.collection('ideas').countDocuments({ authorId: userId, verdict: 'torched' }),
+    db.collection('roasts').countDocuments({ authorId: userId, deleted: { $ne: true } }),
     db
       .collection('defenses')
       .countDocuments({ authorId: userId, deleted: { $ne: true } }),

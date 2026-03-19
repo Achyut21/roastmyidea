@@ -3,7 +3,6 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { getDB } from '../db/connection.js';
 import { requireAuth } from '../middleware/passport.js';
-import { parseId } from '../utils/parseId.js';
 
 const router = Router();
 const SALT_ROUNDS = 10;
@@ -29,9 +28,7 @@ router.post('/register', async (req, res) => {
     return res.status(400).json({ error: 'All fields are required' });
   }
   if (password.length < 6) {
-    return res
-      .status(400)
-      .json({ error: 'Password must be at least 6 characters' });
+    return res.status(400).json({ error: 'Password must be at least 6 characters' });
   }
   const db = getDB();
   const existing = await db

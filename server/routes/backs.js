@@ -17,12 +17,10 @@ router.post('/ideas/:id/back', requireAuth, async (req, res) => {
 
   const idea = await db.collection('ideas').findOne({ _id: ideaId });
   if (!idea) return res.status(404).json({ error: 'Idea not found' });
-  if (idea.verdict !== null)
-    return res.status(400).json({ error: 'Idea is closed' });
+  if (idea.verdict !== null) return res.status(400).json({ error: 'Idea is closed' });
 
   const deadline = new Date(idea.createdAt.getTime() + 7 * 24 * 60 * 60 * 1000);
-  if (Date.now() > deadline)
-    return res.status(400).json({ error: 'Idea is closed' });
+  if (Date.now() > deadline) return res.status(400).json({ error: 'Idea is closed' });
 
   const backerId = req.user._id;
   if (idea.authorId.toString() === req.user._id.toString()) {
@@ -69,9 +67,7 @@ router.get('/ideas/:id/backs', async (req, res) => {
     .find({ _id: { $in: backerIds.map(parseId) } })
     .project({ displayName: 1 })
     .toArray();
-  const userMap = Object.fromEntries(
-    users.map((u) => [u._id.toString(), u.displayName])
-  );
+  const userMap = Object.fromEntries(users.map((u) => [u._id.toString(), u.displayName]));
 
   const result = backs.map((b) => ({
     ...b,

@@ -5,8 +5,7 @@ import './InvestmentHistory.css';
 
 function outcomeLabel(verdict) {
   if (!verdict) return { text: 'Pending', cls: 'outcome-pending' };
-  if (verdict === 'fireproof')
-    return { text: '1.5x return', cls: 'outcome-win' };
+  if (verdict === 'fireproof') return { text: '1.5x return', cls: 'outcome-win' };
   if (verdict === 'torched') return { text: 'Lost', cls: 'outcome-loss' };
   return { text: 'Refunded', cls: 'outcome-refund' };
 }
@@ -23,8 +22,7 @@ export default function InvestmentHistory({ userId }) {
   }, [userId]);
 
   if (loading) return <p className="inv-state">Loading...</p>;
-  if (backs.length === 0)
-    return <p className="inv-state">No investments yet</p>;
+  if (backs.length === 0) return <p className="inv-state">No investments yet</p>;
 
   return (
     <ul className="inv-list">

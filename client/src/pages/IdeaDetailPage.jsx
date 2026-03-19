@@ -47,9 +47,7 @@ export default function IdeaDetailPage() {
         <div className="detail-stats">
           <span className="stat-roast">🔥 {idea.roastCount} Roasts</span>
           <span className="stat-defense">🛡️ {idea.defenseCount} Defenses</span>
-          <span className="stat-rc">
-            💰 {idea.totalRoastCoinInvested} RC Invested
-          </span>
+          <span className="stat-rc">💰 {idea.totalRoastCoinInvested} RC Invested</span>
         </div>
       </div>
       <BackSection idea={idea} />

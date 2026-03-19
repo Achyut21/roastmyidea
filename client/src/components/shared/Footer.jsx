@@ -37,9 +37,7 @@ export default function Footer() {
           <Link to="/" className="footer-logo">
             RoastMyIdea
           </Link>
-          <p className="footer-tagline">
-            Pitch your idea. The internet decides.
-          </p>
+          <p className="footer-tagline">Pitch your idea. The internet decides.</p>
         </div>
 
         <nav className="footer-icons" aria-label="External links">
@@ -48,9 +46,7 @@ export default function Footer() {
               key={label}
               href={href}
               className="footer-icon-link"
-              {...(external
-                ? { target: '_blank', rel: 'noopener noreferrer' }
-                : {})}
+              {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
             >
               <Icon size={18} aria-hidden="true" />
               <span className="visually-hidden">{label}</span>

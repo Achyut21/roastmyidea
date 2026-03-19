@@ -88,8 +88,7 @@ export default function BackWidget({ idea, onBacked }) {
 BackWidget.propTypes = {
   idea: PropTypes.shape({
     _id: PropTypes.string.isRequired,
-    authorId: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
-      .isRequired,
+    authorId: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
     verdict: PropTypes.string,
   }).isRequired,
   onBacked: PropTypes.func.isRequired,

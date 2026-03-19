@@ -25,23 +25,20 @@ export default function PitchForm({ existingIdea, onSuccess }) {
     setError('');
     setLoading(true);
     try {
-      const res = await fetch(
-        isEdit ? `/api/ideas/${existingIdea._id}` : '/api/ideas',
-        {
-          method: isEdit ? 'PUT' : 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${getToken()}`,
-          },
-          body: JSON.stringify({
-            title,
-            pitch,
-            problem,
-            targetAudience,
-            category,
-          }),
-        }
-      );
+      const res = await fetch(isEdit ? `/api/ideas/${existingIdea._id}` : '/api/ideas', {
+        method: isEdit ? 'PUT' : 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${getToken()}`,
+        },
+        body: JSON.stringify({
+          title,
+          pitch,
+          problem,
+          targetAudience,
+          category,
+        }),
+      });
       const data = await res.json();
       if (!res.ok) return setError(data.error || 'Something went wrong');
       if (!isEdit) {

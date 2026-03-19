@@ -17,19 +17,12 @@ const VALID_CATEGORIES = [
   'other',
 ];
 
-function validateIdeaFields({
-  title,
-  pitch,
-  problem,
-  targetAudience,
-  category,
-}) {
+function validateIdeaFields({ title, pitch, problem, targetAudience, category }) {
   if (!title || title.length < 10 || title.length > 100)
     return 'Title must be between 10 and 100 characters';
   if (!pitch || pitch.length < 50 || pitch.length > 500)
     return 'Pitch must be between 50 and 500 characters';
-  if (problem && problem.length > 300)
-    return 'Problem must be 300 characters or fewer';
+  if (problem && problem.length > 300) return 'Problem must be 300 characters or fewer';
   if (targetAudience && targetAudience.length > 200)
     return 'Target audience must be 200 characters or fewer';
   if (!VALID_CATEGORIES.includes(category)) return 'Invalid category';
@@ -43,9 +36,7 @@ async function attachAuthor(db, ideas) {
     .find({ _id: { $in: ids.map((id) => ObjectId.createFromHexString(id)) } })
     .project({ displayName: 1 })
     .toArray();
-  const map = Object.fromEntries(
-    authors.map((a) => [a._id.toString(), a.displayName])
-  );
+  const map = Object.fromEntries(authors.map((a) => [a._id.toString(), a.displayName]));
   return ideas.map((idea) => ({
     ...idea,
     authorDisplayName: map[idea.authorId.toString()] || 'Unknown',
@@ -55,38 +46,103 @@ async function attachAuthor(db, ideas) {
 // GET /api/ideas
 router.get('/', async (req, res) => {
   const db = getDB();
-  const { sort = 'newest', category, status } = req.query;
+  const {
+    sort = 'newest',
+    category,
+    status,
+    lastId,
+    lastVal,
+    limit = '12',
+    q,
+  } = req.query;
+  const PAGE_SIZE = Math.min(parseInt(limit, 10) || 12, 50);
   const cutoff = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
 
-  const filter = {};
-  if (category) filter.category = category;
+  const baseFilter = {};
+  if (category) baseFilter.category = category;
   if (status === 'open') {
-    filter.verdict = null;
-    filter.createdAt = { $gt: cutoff };
+    baseFilter.verdict = null;
+    baseFilter.createdAt = { $gt: cutoff };
   } else if (status) {
-    filter.verdict = status;
+    baseFilter.verdict = status;
   }
 
-  const sortMap = {
-    newest: { createdAt: -1 },
-    mostInvested: { totalRoastCoinInvested: -1 },
-    mostRoasted: { roastCount: -1 },
-    mostDefended: { defenseCount: -1 },
-    endingSoon: { createdAt: 1 },
+  // --- Search mode ---
+  if (q && q.trim()) {
+    baseFilter.$text = { $search: q.trim() };
+    const total = await db.collection('ideas').countDocuments(baseFilter);
+    const ideas = await db
+      .collection('ideas')
+      .find(baseFilter, { projection: { score: { $meta: 'textScore' } } })
+      .sort({ score: { $meta: 'textScore' } })
+      .limit(50)
+      .toArray();
+    return res.json({
+      ideas: await attachAuthor(db, ideas),
+      total,
+      hasNext: false,
+      nextCursor: null,
+      pageSize: 50,
+    });
+  }
+
+  const sortFields = {
+    newest: { createdAt: -1, _id: -1 },
+    endingSoon: { createdAt: 1, _id: 1 },
+    mostInvested: { totalRoastCoinInvested: -1, _id: -1 },
+    mostRoasted: { roastCount: -1, _id: -1 },
+    mostDefended: { defenseCount: -1, _id: -1 },
   };
 
   if (sort === 'endingSoon') {
-    filter.verdict = null;
-    filter.createdAt = { $gt: cutoff };
+    baseFilter.verdict = null;
+    baseFilter.createdAt = { $gt: cutoff };
+  }
+
+  const sortObj = sortFields[sort] || sortFields.newest;
+  const sortKey = Object.keys(sortObj)[0];
+  const sortDir = Object.values(sortObj)[0];
+  const asc = sortDir === 1;
+
+  const total = await db.collection('ideas').countDocuments(baseFilter);
+
+  let pageFilter = { ...baseFilter };
+  if (lastId && lastVal) {
+    const cursorId = parseId(lastId);
+    const cursorVal = sortKey === 'createdAt' ? new Date(lastVal) : parseFloat(lastVal);
+
+    pageFilter = {
+      ...baseFilter,
+      $or: [
+        { [sortKey]: asc ? { $gt: cursorVal } : { $lt: cursorVal } },
+        { [sortKey]: cursorVal, _id: asc ? { $gt: cursorId } : { $lt: cursorId } },
+      ],
+    };
   }
 
   const ideas = await db
     .collection('ideas')
-    .find(filter)
-    .sort(sortMap[sort] || { createdAt: -1 })
+    .find(pageFilter)
+    .sort(sortObj)
+    .limit(PAGE_SIZE + 1)
     .toArray();
 
-  res.json({ ideas: await attachAuthor(db, ideas) });
+  const hasNext = ideas.length > PAGE_SIZE;
+  if (hasNext) ideas.pop();
+
+  const lastIdea = ideas[ideas.length - 1];
+  const nextCursor =
+    hasNext && lastIdea
+      ? { lastId: lastIdea._id.toString(), lastVal: String(lastIdea[sortKey]) }
+      : null;
+
+  res.json({
+    ideas: await attachAuthor(db, ideas),
+    total,
+    hasNext,
+    nextCursor,
+    pageSize: PAGE_SIZE,
+  });
 });
 
 // GET /api/ideas/:id
@@ -203,9 +259,7 @@ router.delete('/:id', requireAuth, async (req, res) => {
   if (idea.authorId.toString() !== req.user._id.toString())
     return res.status(403).json({ error: 'Not your idea' });
   if (idea.totalRoastCoinInvested > 0)
-    return res
-      .status(400)
-      .json({ error: 'Cannot delete an idea with investments' });
+    return res.status(400).json({ error: 'Cannot delete an idea with investments' });
 
   await db.collection('ideas').deleteOne({ _id: ideaId });
   await db.collection('roasts').deleteMany({ ideaId });

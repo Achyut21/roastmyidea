@@ -67,9 +67,7 @@ export default function Navbar() {
           )}
 
           <div className="navbar-right">
-            {user && (
-              <span className="navbar-rc">💰 {user.roastCoinBalance} RC</span>
-            )}
+            {user && <span className="navbar-rc">💰 {user.roastCoinBalance} RC</span>}
             {user && (
               <button
                 className="navbar-btn-secondary navbar-desktop-only"
@@ -99,9 +97,7 @@ export default function Navbar() {
 
       {menuOpen && (
         <div ref={menuRef} className="mobile-menu">
-          {user && (
-            <div className="mobile-rc">💰 {user.roastCoinBalance} RC</div>
-          )}
+          {user && <div className="mobile-rc">💰 {user.roastCoinBalance} RC</div>}
           <NavLink to="/" end className="mobile-link" onClick={closeMenu}>
             Browse
           </NavLink>
@@ -111,11 +107,7 @@ export default function Navbar() {
             </NavLink>
           )}
           {user && (
-            <NavLink
-              to={`/users/${user.id}`}
-              className="mobile-link"
-              onClick={closeMenu}
-            >
+            <NavLink to={`/users/${user.id}`} className="mobile-link" onClick={closeMenu}>
               Profile
             </NavLink>
           )}
@@ -125,10 +117,7 @@ export default function Navbar() {
             </Link>
           )}
           {user && (
-            <button
-              className="mobile-link mobile-logout"
-              onClick={handleLogout}
-            >
+            <button className="mobile-link mobile-logout" onClick={handleLogout}>
               Log Out
             </button>
           )}

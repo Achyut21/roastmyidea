@@ -343,9 +343,7 @@ async function seedBacks(users, ideas) {
   const backs = [];
 
   for (const idea of ideas) {
-    const eligible = users.filter(
-      (u) => u._id.toString() !== idea.authorId.toString()
-    );
+    const eligible = users.filter((u) => u._id.toString() !== idea.authorId.toString());
     const backers = pickMultiple(eligible, Math.floor(Math.random() * 4) + 1);
 
     for (const backer of backers) {
@@ -356,10 +354,7 @@ async function seedBacks(users, ideas) {
       const createdAt = new Date(
         idea.createdAt.getTime() +
           Math.random() *
-            (Math.min(
-              Date.now(),
-              idea.createdAt.getTime() + 6.9 * 24 * 60 * 60 * 1000
-            ) -
+            (Math.min(Date.now(), idea.createdAt.getTime() + 6.9 * 24 * 60 * 60 * 1000) -
               idea.createdAt.getTime())
       );
 
@@ -373,16 +368,10 @@ async function seedBacks(users, ideas) {
 
       await db
         .collection('users')
-        .updateOne(
-          { _id: backer._id },
-          { $inc: { roastCoinBalance: -amount } }
-        );
+        .updateOne({ _id: backer._id }, { $inc: { roastCoinBalance: -amount } });
       await db
         .collection('ideas')
-        .updateOne(
-          { _id: idea._id },
-          { $inc: { totalRoastCoinInvested: amount } }
-        );
+        .updateOne({ _id: idea._id }, { $inc: { totalRoastCoinInvested: amount } });
     }
   }
 
@@ -397,9 +386,7 @@ async function seedRoasts(users, ideas) {
   const sidePicks = {};
 
   for (const idea of ideas) {
-    const eligible = users.filter(
-      (u) => u._id.toString() !== idea.authorId.toString()
-    );
+    const eligible = users.filter((u) => u._id.toString() !== idea.authorId.toString());
     const roasters = pickMultiple(eligible, Math.floor(Math.random() * 5) + 2);
 
     for (const roaster of roasters) {
@@ -450,9 +437,7 @@ async function seedDefenses(users, ideas, roasts, sidePicks) {
   const defendedPairs = new Set();
 
   for (const roast of roasts) {
-    const eligible = users.filter(
-      (u) => u._id.toString() !== roast.authorId.toString()
-    );
+    const eligible = users.filter((u) => u._id.toString() !== roast.authorId.toString());
     const defenders = pickMultiple(eligible, Math.floor(Math.random() * 3) + 1);
 
     for (const defender of defenders) {
@@ -542,15 +527,9 @@ async function processVerdicts(ideas) {
 
     await db
       .collection('ideas')
-      .updateOne(
-        { _id: idea._id },
-        { $set: { verdict, verdictProcessed: true } }
-      );
+      .updateOne({ _id: idea._id }, { $set: { verdict, verdictProcessed: true } });
 
-    const backs = await db
-      .collection('backs')
-      .find({ ideaId: idea._id })
-      .toArray();
+    const backs = await db.collection('backs').find({ ideaId: idea._id }).toArray();
 
     if (verdict === 'fireproof') {
       await db
@@ -568,10 +547,7 @@ async function processVerdicts(ideas) {
       for (const back of backs) {
         await db
           .collection('users')
-          .updateOne(
-            { _id: back.backerId },
-            { $inc: { roastCoinBalance: back.amount } }
-          );
+          .updateOne({ _id: back.backerId }, { $inc: { roastCoinBalance: back.amount } });
       }
     }
   }

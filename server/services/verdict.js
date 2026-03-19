@@ -57,20 +57,14 @@ export async function processVerdict(ideaId) {
       const payout = Math.floor(back.amount * 1.5);
       await db
         .collection('users')
-        .updateOne(
-          { _id: back.backerId },
-          { $inc: { roastCoinBalance: payout } }
-        );
+        .updateOne({ _id: back.backerId }, { $inc: { roastCoinBalance: payout } });
     }
   } else if (verdict === 'lukewarm') {
     const backs = await db.collection('backs').find({ ideaId: id }).toArray();
     for (const back of backs) {
       await db
         .collection('users')
-        .updateOne(
-          { _id: back.backerId },
-          { $inc: { roastCoinBalance: back.amount } }
-        );
+        .updateOne({ _id: back.backerId }, { $inc: { roastCoinBalance: back.amount } });
     }
   }
 }

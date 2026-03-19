@@ -28,21 +28,18 @@ export function configurePassport() {
   );
 
   passport.use(
-    new LocalStrategy(
-      { usernameField: 'email' },
-      async (email, password, done) => {
-        try {
-          const db = getDB();
-          const user = await db.collection('users').findOne({ email });
-          if (!user) return done(null, false, { message: 'Invalid credentials' });
-          const match = await bcrypt.compare(password, user.password);
-          if (!match) return done(null, false, { message: 'Invalid credentials' });
-          return done(null, user);
-        } catch (err) {
-          return done(err);
-        }
+    new LocalStrategy({ usernameField: 'email' }, async (email, password, done) => {
+      try {
+        const db = getDB();
+        const user = await db.collection('users').findOne({ email });
+        if (!user) return done(null, false, { message: 'Invalid credentials' });
+        const match = await bcrypt.compare(password, user.password);
+        if (!match) return done(null, false, { message: 'Invalid credentials' });
+        return done(null, user);
+      } catch (err) {
+        return done(err);
       }
-    )
+    })
   );
 
   return passport;

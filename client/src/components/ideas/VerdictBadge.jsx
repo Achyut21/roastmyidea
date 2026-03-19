@@ -15,11 +15,7 @@ function getTimeRemaining(createdAt) {
   return { text: `${mins}m left`, urgent };
 }
 
-export default function VerdictBadge({
-  verdict = null,
-  createdAt,
-  compact = false,
-}) {
+export default function VerdictBadge({ verdict = null, createdAt, compact = false }) {
   const [timeLeft, setTimeLeft] = useState(() => getTimeRemaining(createdAt));
 
   useEffect(() => {
@@ -32,36 +28,28 @@ export default function VerdictBadge({
 
   if (verdict === 'fireproof') {
     return (
-      <span
-        className={`verdict-badge verdict-fireproof${compact ? ' compact' : ''}`}
-      >
+      <span className={`verdict-badge verdict-fireproof${compact ? ' compact' : ''}`}>
         FIREPROOF
       </span>
     );
   }
   if (verdict === 'torched') {
     return (
-      <span
-        className={`verdict-badge verdict-torched${compact ? ' compact' : ''}`}
-      >
+      <span className={`verdict-badge verdict-torched${compact ? ' compact' : ''}`}>
         TORCHED
       </span>
     );
   }
   if (verdict === 'lukewarm') {
     return (
-      <span
-        className={`verdict-badge verdict-lukewarm${compact ? ' compact' : ''}`}
-      >
+      <span className={`verdict-badge verdict-lukewarm${compact ? ' compact' : ''}`}>
         LUKEWARM
       </span>
     );
   }
   if (!timeLeft) {
     return (
-      <span
-        className={`verdict-badge verdict-lukewarm${compact ? ' compact' : ''}`}
-      >
+      <span className={`verdict-badge verdict-lukewarm${compact ? ' compact' : ''}`}>
         Calculating...
       </span>
     );

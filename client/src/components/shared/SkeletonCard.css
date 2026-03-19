@@ -18,12 +18,7 @@
 }
 
 .skeleton-block {
-  background: linear-gradient(
-    90deg,
-    var(--border) 25%,
-    #eaeaef 50%,
-    var(--border) 75%
-  );
+  background: linear-gradient(90deg, var(--border) 25%, #eaeaef 50%, var(--border) 75%);
   background-size: 800px 100%;
   animation: shimmer 1.4s infinite linear;
   border-radius: var(--radius-xs);

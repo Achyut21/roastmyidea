@@ -18,6 +18,11 @@ export async function createIndexes() {
       { key: { totalRoastCoinInvested: -1 } },
       { key: { roastCount: -1 } },
       { key: { defenseCount: -1 } },
+      {
+        key: { title: 'text', pitch: 'text' },
+        weights: { title: 10, pitch: 5 },
+        name: 'ideas_text',
+      },
     ]);
 
   await db

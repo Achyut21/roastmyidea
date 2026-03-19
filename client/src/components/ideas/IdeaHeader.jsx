@@ -11,8 +11,7 @@ export default function IdeaHeader({ idea }) {
   const navigate = useNavigate();
   const [confirmDelete, setConfirmDelete] = useState(false);
   const isAuthor = user && user.id === idea.authorId.toString();
-  const canDelete =
-    isAuthor && idea.totalRoastCoinInvested === 0 && !idea.verdict;
+  const canDelete = isAuthor && idea.totalRoastCoinInvested === 0 && !idea.verdict;
 
   async function handleDelete() {
     const res = await fetch(`/api/ideas/${idea._id}`, {
@@ -93,8 +92,7 @@ IdeaHeader.propTypes = {
     _id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     category: PropTypes.string.isRequired,
-    authorId: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
-      .isRequired,
+    authorId: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
     authorDisplayName: PropTypes.string.isRequired,
     pitch: PropTypes.string.isRequired,
     problem: PropTypes.string,
