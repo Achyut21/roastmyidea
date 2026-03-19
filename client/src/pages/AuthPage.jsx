@@ -19,6 +19,9 @@ export default function AuthPage() {
   return (
     <div className="auth-page">
       <div className="auth-card">
+        <button className="auth-back" onClick={() => navigate('/')}>
+          ← Back
+        </button>
         {isLogin ? (
           <LoginForm onSuccess={handleSuccess} />
         ) : (

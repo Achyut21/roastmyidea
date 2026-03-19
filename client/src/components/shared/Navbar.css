@@ -4,7 +4,7 @@
   left: 50%;
   transform: translateX(-50%);
   width: 92%;
-  max-width: 860px;
+  max-width: 900px;
   z-index: 100;
   border-radius: 16px;
   background: rgba(255, 255, 255, 0.6);
@@ -30,6 +30,10 @@
   padding: 0 20px;
   height: 52px;
   gap: 16px;
+}
+
+.navbar-inner.no-center {
+  grid-template-columns: 1fr auto;
 }
 
 .navbar-left {
@@ -202,7 +206,7 @@
   left: 50%;
   transform: translateX(-50%);
   width: 92%;
-  max-width: 860px;
+  max-width: 900px;
   z-index: 99;
   background: rgba(255, 255, 255, 0.95);
   border: 1px solid rgba(226, 226, 232, 0.8);

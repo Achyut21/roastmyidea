@@ -45,28 +45,26 @@ export default function Navbar() {
   return (
     <>
       <header className={`navbar ${scrolled ? 'navbar-scrolled' : ''}`}>
-        <div className="navbar-inner">
+        <div className={`navbar-inner${user ? '' : ' no-center'}`}>
           <div className="navbar-left">
             <Link to="/" className="navbar-logo" onClick={closeMenu}>
               RoastMyIdea
             </Link>
           </div>
 
-          <nav className="navbar-center">
-            <NavLink to="/" end className="navbar-link">
-              Browse
-            </NavLink>
-            {user && (
+          {user && (
+            <nav className="navbar-center">
+              <NavLink to="/" end className="navbar-link">
+                Browse
+              </NavLink>
               <NavLink to="/pitch" className="navbar-link">
                 Pitch
               </NavLink>
-            )}
-            {user && (
               <NavLink to={`/users/${user.id}`} className="navbar-link">
                 Profile
               </NavLink>
-            )}
-          </nav>
+            </nav>
+          )}
 
           <div className="navbar-right">
             {user && (
@@ -101,7 +99,9 @@ export default function Navbar() {
 
       {menuOpen && (
         <div ref={menuRef} className="mobile-menu">
-          {user && <div className="mobile-rc">💰 {user.roastCoinBalance} RC</div>}
+          {user && (
+            <div className="mobile-rc">💰 {user.roastCoinBalance} RC</div>
+          )}
           <NavLink to="/" end className="mobile-link" onClick={closeMenu}>
             Browse
           </NavLink>

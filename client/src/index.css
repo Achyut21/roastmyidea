@@ -116,3 +116,13 @@ select {
     padding: 88px 16px 24px;
   }
 }
+
+.app-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-layout > * {
+  width: 100%;
+}

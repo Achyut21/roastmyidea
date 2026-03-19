@@ -3,7 +3,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--bg-page);
+  padding: 80px 16px 32px;
 }
 
 .auth-card {
@@ -16,6 +16,20 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
+}
+
+.auth-back {
+  align-self: flex-start;
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 13px;
+  padding: 0;
+  cursor: pointer;
+}
+
+.auth-back:hover {
+  color: var(--text-primary);
 }
 
 .auth-toggle {
