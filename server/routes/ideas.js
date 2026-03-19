@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { getDB } from '../db/connection.js';
-import { requireAuth } from '../middleware/auth.js';
+import { requireAuth } from '../middleware/passport.js';
 import { processVerdict } from '../services/verdict.js';
 import { parseId } from '../utils/parseId.js';
 import { ObjectId } from 'mongodb';
@@ -124,7 +124,7 @@ router.post('/', requireAuth, async (req, res) => {
   });
   if (err) return res.status(400).json({ error: err });
 
-  const authorId = parseId(req.userId);
+  const authorId = req.user._id;
   const openCount = await db
     .collection('ideas')
     .countDocuments({ authorId, verdict: null });
@@ -163,7 +163,7 @@ router.put('/:id', requireAuth, async (req, res) => {
 
   const idea = await db.collection('ideas').findOne({ _id: ideaId });
   if (!idea) return res.status(404).json({ error: 'Idea not found' });
-  if (idea.authorId.toString() !== req.userId)
+  if (idea.authorId.toString() !== req.user._id.toString())
     return res.status(403).json({ error: 'Not your idea' });
 
   const { title, pitch, problem, targetAudience, category } = req.body;
@@ -200,7 +200,7 @@ router.delete('/:id', requireAuth, async (req, res) => {
 
   const idea = await db.collection('ideas').findOne({ _id: ideaId });
   if (!idea) return res.status(404).json({ error: 'Idea not found' });
-  if (idea.authorId.toString() !== req.userId)
+  if (idea.authorId.toString() !== req.user._id.toString())
     return res.status(403).json({ error: 'Not your idea' });
   if (idea.totalRoastCoinInvested > 0)
     return res

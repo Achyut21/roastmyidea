@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { getDB } from '../db/connection.js';
-import { requireAuth } from '../middleware/auth.js';
+import { requireAuth } from '../middleware/passport.js';
 import { parseId } from '../utils/parseId.js';
 
 const router = Router();
@@ -24,8 +24,8 @@ router.post('/ideas/:id/back', requireAuth, async (req, res) => {
   if (Date.now() > deadline)
     return res.status(400).json({ error: 'Idea is closed' });
 
-  const backerId = parseId(req.userId);
-  if (idea.authorId.toString() === req.userId) {
+  const backerId = req.user._id;
+  if (idea.authorId.toString() === req.user._id.toString()) {
     return res.status(403).json({ error: "You can't back your own idea" });
   }
 

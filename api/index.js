@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import express from 'express';
 import { connectDB } from '../server/db/connection.js';
+import { configurePassport } from '../server/middleware/passport.js';
 import authRoutes from '../server/routes/auth.js';
 import ideaRoutes from '../server/routes/ideas.js';
 import backRoutes from '../server/routes/backs.js';
@@ -10,6 +11,9 @@ import defenseRoutes from '../server/routes/defenses.js';
 
 const app = express();
 app.use(express.json());
+
+const passport = configurePassport();
+app.use(passport.initialize());
 
 let connected = false;
 
@@ -34,7 +38,9 @@ app.use('/api', defenseRoutes);
 
 if (process.env.NODE_ENV !== 'production') {
   const port = process.env.PORT || 3000;
-  app.listen(port, () => console.log(`Server running on port ${port}`));
+  connectDB().then(() => {
+    app.listen(port, () => console.log(`Server running on port ${port}`));
+  });
 }
 
 export default app;

@@ -2,7 +2,7 @@ import { Router } from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { getDB } from '../db/connection.js';
-import { requireAuth } from '../middleware/auth.js';
+import { requireAuth } from '../middleware/passport.js';
 import { parseId } from '../utils/parseId.js';
 
 const router = Router();
@@ -74,13 +74,8 @@ router.post('/login', async (req, res) => {
 });
 
 // GET /api/auth/me
-router.get('/me', requireAuth, async (req, res) => {
-  const db = getDB();
-  const user = await db
-    .collection('users')
-    .findOne({ _id: parseId(req.userId) });
-  if (!user) return res.status(404).json({ error: 'User not found' });
-  res.json({ user: userResponse(user) });
+router.get('/me', requireAuth, (req, res) => {
+  res.json({ user: userResponse(req.user) });
 });
 
 export default router;
