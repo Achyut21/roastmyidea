@@ -56,18 +56,16 @@ router.post('/roasts/:id/defenses', requireAuth, async (req, res) => {
     .findOne({ roastId, authorId, deleted: false });
   if (existing)
     return res.status(400).json({ error: 'You already defended against this roast' });
-  const result = await db
-    .collection('defenses')
-    .insertOne({
-      ideaId: roast.ideaId,
-      roastId,
-      authorId,
-      content: content.trim(),
-      upvotedBy: [],
-      upvoteCount: 0,
-      deleted: false,
-      createdAt: new Date(),
-    });
+  const result = await db.collection('defenses').insertOne({
+    ideaId: roast.ideaId,
+    roastId,
+    authorId,
+    content: content.trim(),
+    upvotedBy: [],
+    upvoteCount: 0,
+    deleted: false,
+    createdAt: new Date(),
+  });
   await db
     .collection('ideas')
     .updateOne({ _id: roast.ideaId }, { $inc: { defenseCount: 1 } });
