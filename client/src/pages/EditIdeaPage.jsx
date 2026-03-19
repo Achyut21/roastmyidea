@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
 import PitchForm from '../components/ideas/PitchForm.jsx';
 import './PitchPage.css';
 import './EditIdeaPage.css';
@@ -41,12 +42,11 @@ export default function EditIdeaPage() {
 
   return (
     <main className="main-content pitch-page">
-      <div className="edit-page-top">
-        <h1 className="pitch-page-title">Edit Idea</h1>
-        <Link to={`/ideas/${id}`} className="edit-cancel-link">
-          Cancel
-        </Link>
-      </div>
+      <button className="page-back" onClick={() => navigate(`/ideas/${id}`)}>
+        <ArrowLeft size={14} aria-hidden="true" />
+        Back
+      </button>
+      <h1 className="pitch-page-title">Edit Idea</h1>
       <PitchForm existingIdea={idea} onSuccess={handleSuccess} />
     </main>
   );

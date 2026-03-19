@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+import { Flame, Shield, Coins, ArrowLeft } from 'lucide-react';
 import IdeaHeader from '../components/ideas/IdeaHeader.jsx';
 import VerdictBadge from '../components/ideas/VerdictBadge.jsx';
 import BackSection from '../components/backs/BackSection.jsx';
@@ -7,6 +8,7 @@ import './IdeaDetailPage.css';
 
 export default function IdeaDetailPage() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [idea, setIdea] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -41,13 +43,24 @@ export default function IdeaDetailPage() {
 
   return (
     <main className="main-content detail-content">
+      <button className="detail-back" onClick={() => navigate(-1)}>
+        <ArrowLeft size={14} aria-hidden="true" />
+        Back
+      </button>
       <IdeaHeader idea={idea} />
       <div className="detail-status-bar">
         <VerdictBadge verdict={idea.verdict} createdAt={idea.createdAt} />
         <div className="detail-stats">
-          <span className="stat-roast">🔥 {idea.roastCount} Roasts</span>
-          <span className="stat-defense">🛡️ {idea.defenseCount} Defenses</span>
-          <span className="stat-rc">💰 {idea.totalRoastCoinInvested} RC Invested</span>
+          <span className="stat-roast">
+            <Flame size={15} aria-hidden="true" /> {idea.roastCount} Roasts
+          </span>
+          <span className="stat-defense">
+            <Shield size={15} aria-hidden="true" /> {idea.defenseCount} Defenses
+          </span>
+          <span className="stat-rc">
+            <Coins size={15} aria-hidden="true" /> {idea.totalRoastCoinInvested} RC
+            Invested
+          </span>
         </div>
       </div>
       <BackSection idea={idea} />

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
 import LoginForm from '../components/auth/LoginForm.jsx';
 import RegisterForm from '../components/auth/RegisterForm.jsx';
 import './AuthPage.css';
@@ -20,7 +21,8 @@ export default function AuthPage() {
     <div className="auth-page">
       <div className="auth-card">
         <button className="auth-back" onClick={() => navigate('/')}>
-          ← Back
+          <ArrowLeft size={15} aria-hidden="true" />
+          Back
         </button>
         {isLogin ? (
           <LoginForm onSuccess={handleSuccess} />

@@ -14,12 +14,23 @@
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: var(--radius);
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .detail-stats {
   display: flex;
-  gap: 16px;
+  flex-wrap: wrap;
+  gap: 12px;
   font-size: 14px;
+}
+
+.detail-stats .stat-roast,
+.detail-stats .stat-defense,
+.detail-stats .stat-rc {
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
 .detail-stats .stat-roast {
@@ -45,4 +56,21 @@
 .detail-state {
   color: var(--text-secondary);
   font-size: 14px;
+}
+
+.detail-back {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  padding: 0;
+  margin-bottom: 20px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.detail-back:hover {
+  color: var(--text-primary);
 }

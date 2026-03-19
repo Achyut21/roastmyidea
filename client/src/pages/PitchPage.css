@@ -7,3 +7,20 @@
   font-weight: 500;
   margin-bottom: 24px;
 }
+
+.page-back {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  padding: 0;
+  margin-bottom: 20px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.page-back:hover {
+  color: var(--text-primary);
+}

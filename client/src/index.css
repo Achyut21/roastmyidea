@@ -55,6 +55,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  min-width: 0;
 }
 
 body {
@@ -69,6 +70,14 @@ body {
   line-height: 1.5;
   color: var(--text-primary);
   background-color: var(--bg-page);
+  overflow-wrap: break-word;
+}
+
+img,
+video,
+svg {
+  max-width: 100%;
+  height: auto;
 }
 
 a {
@@ -121,8 +130,4 @@ select {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-}
-
-.app-layout > * {
-  width: 100%;
 }

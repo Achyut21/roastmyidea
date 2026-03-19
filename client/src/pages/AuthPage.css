@@ -19,6 +19,9 @@
 }
 
 .auth-back {
+  display: flex;
+  align-items: center;
+  gap: 4px;
   align-self: flex-start;
   background: none;
   border: none;

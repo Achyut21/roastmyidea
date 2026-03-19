@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
 import TitleBadges from '../components/profile/TitleBadges.jsx';
 import ProfileStats from '../components/profile/ProfileStats.jsx';
 import InvestmentHistory from '../components/backs/InvestmentHistory.jsx';
@@ -8,6 +9,7 @@ import './ProfilePage.css';
 
 export default function ProfilePage() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -44,6 +46,10 @@ export default function ProfilePage() {
 
   return (
     <main className="main-content profile-page">
+      <button className="page-back" onClick={() => navigate(-1)}>
+        <ArrowLeft size={14} aria-hidden="true" />
+        Back
+      </button>
       <div className="profile-header">
         <div>
           <h1 className="profile-name">{profile.displayName}</h1>

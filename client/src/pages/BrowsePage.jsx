@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { Search, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useAuth } from '../context/AuthContext.jsx';
 import IdeaCard from '../components/ideas/IdeaCard.jsx';
 import FilterBar from '../components/ideas/FilterBar.jsx';
@@ -134,7 +135,8 @@ export default function BrowsePage() {
             aria-label="Clear search"
             onClick={clearSearch}
           >
-            ✕
+            <X size={14} aria-hidden="true" />
+            <span className="visually-hidden">Clear search</span>
           </button>
         )}
         <button type="submit" className="search-submit">
@@ -179,7 +181,7 @@ export default function BrowsePage() {
 
       {!loading && !fetchError && ideas.length === 0 && (
         <div className="browse-empty-state">
-          <p className="browse-empty-icon">🔍</p>
+          <Search size={32} className="browse-empty-icon" aria-hidden="true" />
           <p className="browse-empty-title">No ideas found</p>
           <p className="browse-empty-sub">
             Try adjusting your filters or be the first to pitch one.
@@ -206,13 +208,15 @@ export default function BrowsePage() {
                 onClick={handlePrev}
                 disabled={page === 1}
               >
-                ← Prev
+                <ChevronLeft size={16} aria-hidden="true" />
+                Prev
               </button>
               <span className="pagination-info">
                 Page {page} of {totalPages}
               </span>
               <button className="pagination-btn" onClick={handleNext} disabled={!hasNext}>
-                Next →
+                Next
+                <ChevronRight size={16} aria-hidden="true" />
               </button>
             </div>
           )}

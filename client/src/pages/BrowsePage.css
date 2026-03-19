@@ -42,7 +42,8 @@
 }
 
 .browse-empty-icon {
-  font-size: 32px;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
 }
 
 .browse-empty-title {
@@ -75,6 +76,9 @@
 }
 
 .pagination-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);

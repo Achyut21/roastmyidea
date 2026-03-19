@@ -8,22 +8,20 @@ export async function createIndexes() {
     { key: { displayName: 1 }, unique: true },
   ]);
 
-  await db
-    .collection('ideas')
-    .createIndexes([
-      { key: { authorId: 1 } },
-      { key: { category: 1 } },
-      { key: { verdict: 1 } },
-      { key: { createdAt: -1 } },
-      { key: { totalRoastCoinInvested: -1 } },
-      { key: { roastCount: -1 } },
-      { key: { defenseCount: -1 } },
-      {
-        key: { title: 'text', pitch: 'text' },
-        weights: { title: 10, pitch: 5 },
-        name: 'ideas_text',
-      },
-    ]);
+  await db.collection('ideas').createIndexes([
+    { key: { authorId: 1 } },
+    { key: { category: 1 } },
+    { key: { verdict: 1 } },
+    { key: { createdAt: -1 } },
+    { key: { totalRoastCoinInvested: -1 } },
+    { key: { roastCount: -1 } },
+    { key: { defenseCount: -1 } },
+    {
+      key: { title: 'text', pitch: 'text' },
+      weights: { title: 10, pitch: 5 },
+      name: 'ideas_text',
+    },
+  ]);
 
   await db
     .collection('roasts')
