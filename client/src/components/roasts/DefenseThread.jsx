@@ -105,7 +105,9 @@ export default function DefenseThread({ roast, idea, onCountChange }) {
       });
       const data = await res.json();
       if (res.ok) {
-        setDefenses((prev) => prev.map((d) => (d._id === defense._id ? data.defense : d)));
+        setDefenses((prev) =>
+          prev.map((d) => (d._id === defense._id ? data.defense : d))
+        );
         setEditingId(null);
         showToast('Defense updated');
       }
@@ -153,7 +155,13 @@ export default function DefenseThread({ roast, idea, onCountChange }) {
             <span className="defense-char-count">{content.length}/500</span>
             {error && <p className="defense-form-error">{error}</p>}
             <button type="submit" className="defense-submit-btn" disabled={submitting}>
-              {submitting ? 'Posting...' : <><Shield size={13} aria-hidden="true" /> Defend</>}
+              {submitting ? (
+                'Posting...'
+              ) : (
+                <>
+                  <Shield size={13} aria-hidden="true" /> Defend
+                </>
+              )}
             </button>
           </div>
         </form>
@@ -170,7 +178,8 @@ export default function DefenseThread({ roast, idea, onCountChange }) {
       <div className="defense-list">
         {defenses.map((defense) => {
           const isOwn = user && user.id === defense.authorId?.toString();
-          const hasUpvoted = user && defense.upvotedBy?.some((id) => id.toString() === user.id);
+          const hasUpvoted =
+            user && defense.upvotedBy?.some((id) => id.toString() === user.id);
           return (
             <div key={defense._id} className="defense-card">
               <div className="defense-card-header">
@@ -184,19 +193,35 @@ export default function DefenseThread({ roast, idea, onCountChange }) {
                   <div className="defense-card-actions">
                     <button
                       className="defense-action-btn"
-                      onClick={() => { setEditingId(defense._id); setEditContent(defense.content); }}
+                      onClick={() => {
+                        setEditingId(defense._id);
+                        setEditContent(defense.content);
+                      }}
                     >
                       Edit
                     </button>
                     {confirmDeleteId !== defense._id ? (
-                      <button className="defense-action-btn danger" onClick={() => setConfirmDeleteId(defense._id)}>
+                      <button
+                        className="defense-action-btn danger"
+                        onClick={() => setConfirmDeleteId(defense._id)}
+                      >
                         Delete
                       </button>
                     ) : (
                       <span className="defense-confirm-row">
                         <span className="defense-confirm-text">Sure?</span>
-                        <button className="defense-action-btn danger" onClick={() => handleDelete(defense)}>Yes</button>
-                        <button className="defense-action-btn" onClick={() => setConfirmDeleteId(null)}>Cancel</button>
+                        <button
+                          className="defense-action-btn danger"
+                          onClick={() => handleDelete(defense)}
+                        >
+                          Yes
+                        </button>
+                        <button
+                          className="defense-action-btn"
+                          onClick={() => setConfirmDeleteId(null)}
+                        >
+                          Cancel
+                        </button>
                       </span>
                     )}
                   </div>
@@ -212,8 +237,18 @@ export default function DefenseThread({ roast, idea, onCountChange }) {
                     rows={2}
                   />
                   <div className="defense-form-footer">
-                    <button className="defense-submit-btn" onClick={() => handleSaveEdit(defense)}>Save</button>
-                    <button className="defense-action-btn" onClick={() => setEditingId(null)}>Cancel</button>
+                    <button
+                      className="defense-submit-btn"
+                      onClick={() => handleSaveEdit(defense)}
+                    >
+                      Save
+                    </button>
+                    <button
+                      className="defense-action-btn"
+                      onClick={() => setEditingId(null)}
+                    >
+                      Cancel
+                    </button>
                   </div>
                 </div>
               ) : (

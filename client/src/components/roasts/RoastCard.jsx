@@ -102,21 +102,34 @@ export default function RoastCard({ roast, idea, onUpdate, onDelete }) {
         </span>
         {isOwn && !isClosed && (
           <div className="roast-card-actions">
-              <button className="roast-card-action-btn" onClick={() => setEditing((v) => !v)}>
-                {editing ? 'Cancel' : 'Edit'}
+            <button
+              className="roast-card-action-btn"
+              onClick={() => setEditing((v) => !v)}
+            >
+              {editing ? 'Cancel' : 'Edit'}
+            </button>
+            {!confirmDelete ? (
+              <button
+                className="roast-card-action-btn danger"
+                onClick={() => setConfirmDelete(true)}
+              >
+                Delete
               </button>
-              {!confirmDelete ? (
-                <button className="roast-card-action-btn danger" onClick={() => setConfirmDelete(true)}>
-                  Delete
+            ) : (
+              <span className="roast-confirm-row">
+                <span className="roast-confirm-text">Sure?</span>
+                <button className="roast-card-action-btn danger" onClick={handleDelete}>
+                  Yes
                 </button>
-              ) : (
-                <span className="roast-confirm-row">
-                  <span className="roast-confirm-text">Sure?</span>
-                  <button className="roast-card-action-btn danger" onClick={handleDelete}>Yes</button>
-                  <button className="roast-card-action-btn" onClick={() => setConfirmDelete(false)}>Cancel</button>
-                </span>
-              )}
-            </div>
+                <button
+                  className="roast-card-action-btn"
+                  onClick={() => setConfirmDelete(false)}
+                >
+                  Cancel
+                </button>
+              </span>
+            )}
+          </div>
         )}
       </div>
       {editing ? (
@@ -154,7 +167,9 @@ export default function RoastCard({ roast, idea, onUpdate, onDelete }) {
           {showDefenses ? 'Hide' : 'Defend'} ({defenseCount})
         </button>
       </div>
-      {showDefenses && <DefenseThread roast={roast} idea={idea} onCountChange={setDefenseCount} />}
+      {showDefenses && (
+        <DefenseThread roast={roast} idea={idea} onCountChange={setDefenseCount} />
+      )}
     </article>
   );
 }

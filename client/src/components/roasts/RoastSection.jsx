@@ -79,7 +79,13 @@ export default function RoastSection({ idea }) {
             <span className="roast-char-count">{content.length}/500</span>
             {error && <p className="roast-form-error">{error}</p>}
             <button type="submit" className="roast-submit-btn" disabled={submitting}>
-              {submitting ? 'Posting...' : <><Flame size={13} aria-hidden="true" /> Post Roast</>}
+              {submitting ? (
+                'Posting...'
+              ) : (
+                <>
+                  <Flame size={13} aria-hidden="true" /> Post Roast
+                </>
+              )}
             </button>
           </div>
         </form>
@@ -90,7 +96,9 @@ export default function RoastSection({ idea }) {
         </p>
       )}
       {isOwn && !isClosed && (
-        <p className="roast-login-msg">You can&apos;t roast your own idea — watch the debate unfold.</p>
+        <p className="roast-login-msg">
+          You can&apos;t roast your own idea — watch the debate unfold.
+        </p>
       )}
       {loading && <p className="roast-state">Loading roasts...</p>}
       {!loading && roasts.length === 0 && (
