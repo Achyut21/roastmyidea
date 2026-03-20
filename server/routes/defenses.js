@@ -60,7 +60,9 @@ router.post('/roasts/:id/defenses', requireAuth, async (req, res) => {
     .collection('roasts')
     .findOne({ ideaId: roast.ideaId, authorId, deleted: false });
   if (hasRoasted)
-    return res.status(400).json({ error: "You already roasted this idea, you can't switch sides" });
+    return res
+      .status(400)
+      .json({ error: "You already roasted this idea, you can't switch sides" });
   const result = await db.collection('defenses').insertOne({
     ideaId: roast.ideaId,
     roastId,

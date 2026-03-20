@@ -28,16 +28,16 @@ RoastMyIdea is a community platform where users pitch startup ideas, side projec
 
 ## Screenshots
 
-| Page | Preview |
-|------|---------|
-| Logged out browse | ![Logged out browse](screenshots/logged-out-browse.webp) |
-| Logged in browse | ![Logged in browse](screenshots/logged-in-browse.webp) |
-| Ideas page | ![Ideas page](screenshots/ideas-page.webp) |
-| Log in | ![Log in](screenshots/login.webp) |
-| Sign up | ![Sign up](screenshots/signup.webp) |
-| Pitch | ![Pitch](screenshots/pitch.webp) |
-| Profile | ![Profile](screenshots/profile.webp) |
-| MongoDB collections | ![MongoDB collections](screenshots/mongodb.webp) |
+| Page                | Preview                                                  |
+| ------------------- | -------------------------------------------------------- |
+| Logged out browse   | ![Logged out browse](screenshots/logged-out-browse.webp) |
+| Logged in browse    | ![Logged in browse](screenshots/logged-in-browse.webp)   |
+| Ideas page          | ![Ideas page](screenshots/ideas-page.webp)               |
+| Log in              | ![Log in](screenshots/login.webp)                        |
+| Sign up             | ![Sign up](screenshots/signup.webp)                      |
+| Pitch               | ![Pitch](screenshots/pitch.webp)                         |
+| Profile             | ![Profile](screenshots/profile.webp)                     |
+| MongoDB collections | ![MongoDB collections](screenshots/mongodb.webp)         |
 
 ## Design Document
 
@@ -163,55 +163,55 @@ The frontend will be at `http://localhost:5173` and the API at `http://localhost
 
 ### Auth
 
-| Method | Endpoint | Description | Auth |
-|--------|----------|-------------|------|
-| POST | `/api/auth/register` | Create a new user | No |
-| POST | `/api/auth/login` | Log in and receive JWT | No |
-| GET | `/api/auth/me` | Get current user info | Yes |
+| Method | Endpoint             | Description            | Auth |
+| ------ | -------------------- | ---------------------- | ---- |
+| POST   | `/api/auth/register` | Create a new user      | No   |
+| POST   | `/api/auth/login`    | Log in and receive JWT | No   |
+| GET    | `/api/auth/me`       | Get current user info  | Yes  |
 
 ### Ideas
 
-| Method | Endpoint | Description | Auth |
-|--------|----------|-------------|------|
-| GET | `/api/ideas` | Get ideas with pagination, filtering, and search (`?sort=`, `?category=`, `?status=`, `?q=`, `?lastId=`, `?lastVal=`) | No |
-| GET | `/api/ideas/:id` | Get a single idea | No |
-| POST | `/api/ideas` | Create a new idea | Yes |
-| PUT | `/api/ideas/:id` | Update an idea (author only) | Yes |
-| DELETE | `/api/ideas/:id` | Delete an idea (author only) | Yes |
+| Method | Endpoint         | Description                                                                                                           | Auth |
+| ------ | ---------------- | --------------------------------------------------------------------------------------------------------------------- | ---- |
+| GET    | `/api/ideas`     | Get ideas with pagination, filtering, and search (`?sort=`, `?category=`, `?status=`, `?q=`, `?lastId=`, `?lastVal=`) | No   |
+| GET    | `/api/ideas/:id` | Get a single idea                                                                                                     | No   |
+| POST   | `/api/ideas`     | Create a new idea                                                                                                     | Yes  |
+| PUT    | `/api/ideas/:id` | Update an idea (author only)                                                                                          | Yes  |
+| DELETE | `/api/ideas/:id` | Delete an idea (author only)                                                                                          | Yes  |
 
 ### Roasts
 
-| Method | Endpoint | Description | Auth |
-|--------|----------|-------------|------|
-| GET | `/api/ideas/:id/roasts` | Get all roasts for an idea | No |
-| POST | `/api/ideas/:id/roasts` | Post a roast | Yes |
-| PUT | `/api/roasts/:id` | Edit a roast (author only) | Yes |
-| DELETE | `/api/roasts/:id` | Delete a roast (author only) | Yes |
-| POST | `/api/roasts/:id/upvote` | Toggle upvote on a roast | Yes |
+| Method | Endpoint                 | Description                  | Auth |
+| ------ | ------------------------ | ---------------------------- | ---- |
+| GET    | `/api/ideas/:id/roasts`  | Get all roasts for an idea   | No   |
+| POST   | `/api/ideas/:id/roasts`  | Post a roast                 | Yes  |
+| PUT    | `/api/roasts/:id`        | Edit a roast (author only)   | Yes  |
+| DELETE | `/api/roasts/:id`        | Delete a roast (author only) | Yes  |
+| POST   | `/api/roasts/:id/upvote` | Toggle upvote on a roast     | Yes  |
 
 ### Defenses
 
-| Method | Endpoint | Description | Auth |
-|--------|----------|-------------|------|
-| GET | `/api/roasts/:id/defenses` | Get all defenses for a roast | No |
-| POST | `/api/roasts/:id/defenses` | Post a defense | Yes |
-| PUT | `/api/defenses/:id` | Edit a defense (author only) | Yes |
-| DELETE | `/api/defenses/:id` | Delete a defense (author only) | Yes |
-| POST | `/api/defenses/:id/upvote` | Toggle upvote on a defense | Yes |
+| Method | Endpoint                   | Description                    | Auth |
+| ------ | -------------------------- | ------------------------------ | ---- |
+| GET    | `/api/roasts/:id/defenses` | Get all defenses for a roast   | No   |
+| POST   | `/api/roasts/:id/defenses` | Post a defense                 | Yes  |
+| PUT    | `/api/defenses/:id`        | Edit a defense (author only)   | Yes  |
+| DELETE | `/api/defenses/:id`        | Delete a defense (author only) | Yes  |
+| POST   | `/api/defenses/:id/upvote` | Toggle upvote on a defense     | Yes  |
 
 ### Backs (Investments)
 
-| Method | Endpoint | Description | Auth |
-|--------|----------|-------------|------|
-| GET | `/api/ideas/:id/backs` | Get all backers for an idea | No |
-| POST | `/api/ideas/:id/back` | Invest RoastCoin in an idea | Yes |
-| GET | `/api/users/:id/backs` | Get investment history for a user | Yes |
+| Method | Endpoint               | Description                       | Auth |
+| ------ | ---------------------- | --------------------------------- | ---- |
+| GET    | `/api/ideas/:id/backs` | Get all backers for an idea       | No   |
+| POST   | `/api/ideas/:id/back`  | Invest RoastCoin in an idea       | Yes  |
+| GET    | `/api/users/:id/backs` | Get investment history for a user | Yes  |
 
 ### Users
 
-| Method | Endpoint | Description | Auth |
-|--------|----------|-------------|------|
-| GET | `/api/users/:id/profile` | Get a user's public profile and stats | No |
+| Method | Endpoint                 | Description                           | Auth |
+| ------ | ------------------------ | ------------------------------------- | ---- |
+| GET    | `/api/users/:id/profile` | Get a user's public profile and stats | No   |
 
 ## MongoDB Collections
 
