@@ -12,7 +12,7 @@ const SOCIAL_LINKS = [
   {
     icon: Youtube,
     label: 'YouTube',
-    href: 'https://youtu.be/PLACEHOLDER',
+    href: 'https://www.youtube.com/watch?v=GuO2fjYOHPE',
     external: true,
   },
   {

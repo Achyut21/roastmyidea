@@ -51,7 +51,7 @@ RoastMyIdea is a community platform where users pitch startup ideas, side projec
 
 ## Demo Video
 
-[Watch on YouTube](https://youtu.be/PLACEHOLDER)
+[Watch on YouTube](https://www.youtube.com/watch?v=GuO2fjYOHPE)
 
 ## Presentation
 
