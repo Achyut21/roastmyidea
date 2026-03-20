@@ -1,4 +1,6 @@
-# RoastMyIdea
+# <img src="screenshots/logo.png" width="32" height="32" align="center" alt="RoastMyIdea logo"/> RoastMyIdea
+
+<p align="center"><img src="screenshots/banner.gif" alt="RoastMyIdea banner" width="100%"/></p>
 
 **Authors:** Achyut Katiyar, Soni Rusagara
 
@@ -7,10 +9,11 @@
 ## Table of Contents
 
 - [Project Objective](#project-objective)
-- [Screenshot](#screenshot)
+- [Screenshots](#screenshots)
 - [Design Document](#design-document)
 - [Live Demo](#live-demo)
 - [Demo Video](#demo-video)
+- [Presentation](#presentation)
 - [Tech Stack](#tech-stack)
 - [Database](#database)
 - [How to Use](#how-to-use)
@@ -23,13 +26,23 @@
 
 RoastMyIdea is a community platform where users pitch startup ideas, side projects, or any concept and the internet decides if they are worth building. Users roast ideas with critiques, defend them with counter-arguments, and back them with virtual RoastCoin. After 7 days a verdict is revealed: FIREPROOF, TORCHED, or LUKEWARM. Fireproof ideas pay out 1.5x to backers, torched ideas lose their stake, and lukewarm ideas get refunded.
 
-## Screenshot
+## Screenshots
 
-![RoastMyIdea Screenshot](screenshots/screenshot.png)
+| Page | Preview |
+|------|---------|
+| Logged out browse | ![Logged out browse](screenshots/logged-out-browse.webp) |
+| Logged in browse | ![Logged in browse](screenshots/logged-in-browse.webp) |
+| Ideas page | ![Ideas page](screenshots/ideas-page.webp) |
+| Log in | ![Log in](screenshots/login.webp) |
+| Sign up | ![Sign up](screenshots/signup.webp) |
+| Pitch | ![Pitch](screenshots/pitch.webp) |
+| Profile | ![Profile](screenshots/profile.webp) |
 
 ## Design Document
 
-[View the full Design Document](https://github.com/Achyut21/roastmyidea/blob/main/docs/design-document.md) including project description, user personas, user stories, design mockups and technical decisions.
+[View the full Design Document](https://github.com/Achyut21/roastmyidea/blob/main/docs/RoastMyIdea%20Design%20Document.pdf) including project description, user personas, user stories, design mockups and technical decisions.
+
+[View Wireframes on Figma](https://www.figma.com/design/yYo7Sp8kBIOD0Now5FP4eH/RoastMyIdea?node-id=0-1&t=bpeWTdcMzqWolV9r-1)
 
 ## Live Demo
 
@@ -38,6 +51,10 @@ RoastMyIdea is a community platform where users pitch startup ideas, side projec
 ## Demo Video
 
 [Watch on YouTube](https://youtu.be/PLACEHOLDER)
+
+## Presentation
+
+[View Presentation on Canva](https://www.canva.com/design/DAHEb2l0pZ4/m2r9RFUiHWc7poiUrXUuFA/edit?utm_content=DAHEb2l0pZ4&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
 
 ## Tech Stack
 
@@ -51,21 +68,39 @@ The app uses MongoDB Atlas with five collections: users, ideas, roasts, defenses
 
 **Step 1: Create an account.** Click "Log In" in the navbar, then switch to "Register". Enter a display name, email, and password. You will start with 1000 RoastCoin.
 
+![Step 1](screenshots/step-1.gif)
+
 **Step 2: Browse ideas.** The home page shows all pitched ideas. Use the search bar to find ideas by keyword. Use the dropdowns to filter by category, status, or sort by newest, most invested, most roasted, or ending soon.
+
+![Step 2](screenshots/step-2.gif)
 
 **Step 3: Read an idea.** Click any card to open the idea detail page. The left side shows the full pitch, problem statement, and target audience. The right sidebar shows the verdict timer, stats, and the invest widget.
 
+![Step 3](screenshots/step-3.gif)
+
 **Step 4: Invest RoastCoin.** On an open idea's detail page, enter an amount (minimum 10 RC) and click Invest. If the idea ends FIREPROOF your stake returns at 1.5x. TORCHED ideas lose the stake. LUKEWARM ideas refund it.
+
+![Step 4](screenshots/step-4.gif)
 
 **Step 5: Post a roast.** Scroll down on any idea detail page to the Roasts & Defenses section. Write a critique of at least 10 characters and click Post Roast. You cannot roast your own idea.
 
+![Step 5](screenshots/step-5.gif)
+
 **Step 6: Post a defense.** Click "Defend" under any roast to counter it. Write a defense of at least 10 characters and click Defend. You cannot defend against your own roast.
+
+![Step 6](screenshots/step-6.gif)
 
 **Step 7: Upvote.** Click the thumbs up on any roast or defense to upvote it. Upvote counts influence the final verdict when the 7-day window closes.
 
+![Step 7](screenshots/step-7.gif)
+
 **Step 8: Pitch your own idea.** Click "+ Pitch Your Idea" on the browse page. Fill in the title, pitch, optional problem statement and target audience, and choose a category. Click Submit Pitch.
 
+![Step 8](screenshots/step-8.gif)
+
 **Step 9: View your profile.** Click Profile in the navbar to see your stats, title badges, RC balance, and investment history.
+
+![Step 9](screenshots/step-9.gif)
 
 ## Instructions to Build
 
@@ -127,43 +162,55 @@ The frontend will be at `http://localhost:5173` and the API at `http://localhost
 
 ### Auth
 
-- `POST /api/auth/register` — Create a new user
-- `POST /api/auth/login` — Log in and receive JWT
-- `GET /api/auth/me` — Get current user info (requires auth)
+| Method | Endpoint | Description | Auth |
+|--------|----------|-------------|------|
+| POST | `/api/auth/register` | Create a new user | No |
+| POST | `/api/auth/login` | Log in and receive JWT | No |
+| GET | `/api/auth/me` | Get current user info | Yes |
 
 ### Ideas
 
-- `GET /api/ideas` — Get ideas with pagination, filtering, and search (`?sort=`, `?category=`, `?status=`, `?q=`, `?lastId=`, `?lastVal=`)
-- `GET /api/ideas/:id` — Get a single idea
-- `POST /api/ideas` — Create a new idea (requires auth)
-- `PUT /api/ideas/:id` — Update an idea (requires auth, author only)
-- `DELETE /api/ideas/:id` — Delete an idea (requires auth, author only)
+| Method | Endpoint | Description | Auth |
+|--------|----------|-------------|------|
+| GET | `/api/ideas` | Get ideas with pagination, filtering, and search (`?sort=`, `?category=`, `?status=`, `?q=`, `?lastId=`, `?lastVal=`) | No |
+| GET | `/api/ideas/:id` | Get a single idea | No |
+| POST | `/api/ideas` | Create a new idea | Yes |
+| PUT | `/api/ideas/:id` | Update an idea (author only) | Yes |
+| DELETE | `/api/ideas/:id` | Delete an idea (author only) | Yes |
 
 ### Roasts
 
-- `GET /api/ideas/:id/roasts` — Get all roasts for an idea
-- `POST /api/ideas/:id/roasts` — Post a roast (requires auth)
-- `PUT /api/roasts/:id` — Edit a roast (requires auth, author only)
-- `DELETE /api/roasts/:id` — Delete a roast (requires auth, author only)
-- `POST /api/roasts/:id/upvote` — Toggle upvote on a roast (requires auth)
+| Method | Endpoint | Description | Auth |
+|--------|----------|-------------|------|
+| GET | `/api/ideas/:id/roasts` | Get all roasts for an idea | No |
+| POST | `/api/ideas/:id/roasts` | Post a roast | Yes |
+| PUT | `/api/roasts/:id` | Edit a roast (author only) | Yes |
+| DELETE | `/api/roasts/:id` | Delete a roast (author only) | Yes |
+| POST | `/api/roasts/:id/upvote` | Toggle upvote on a roast | Yes |
 
 ### Defenses
 
-- `GET /api/roasts/:id/defenses` — Get all defenses for a roast
-- `POST /api/roasts/:id/defenses` — Post a defense (requires auth)
-- `PUT /api/defenses/:id` — Edit a defense (requires auth, author only)
-- `DELETE /api/defenses/:id` — Delete a defense (requires auth, author only)
-- `POST /api/defenses/:id/upvote` — Toggle upvote on a defense (requires auth)
+| Method | Endpoint | Description | Auth |
+|--------|----------|-------------|------|
+| GET | `/api/roasts/:id/defenses` | Get all defenses for a roast | No |
+| POST | `/api/roasts/:id/defenses` | Post a defense | Yes |
+| PUT | `/api/defenses/:id` | Edit a defense (author only) | Yes |
+| DELETE | `/api/defenses/:id` | Delete a defense (author only) | Yes |
+| POST | `/api/defenses/:id/upvote` | Toggle upvote on a defense | Yes |
 
 ### Backs (Investments)
 
-- `GET /api/ideas/:id/backs` — Get all backers for an idea
-- `POST /api/ideas/:id/back` — Invest RoastCoin in an idea (requires auth)
-- `GET /api/users/:id/backs` — Get investment history for a user
+| Method | Endpoint | Description | Auth |
+|--------|----------|-------------|------|
+| GET | `/api/ideas/:id/backs` | Get all backers for an idea | No |
+| POST | `/api/ideas/:id/back` | Invest RoastCoin in an idea | Yes |
+| GET | `/api/users/:id/backs` | Get investment history for a user | Yes |
 
 ### Users
 
-- `GET /api/users/:id/profile` — Get a user's public profile and stats
+| Method | Endpoint | Description | Auth |
+|--------|----------|-------------|------|
+| GET | `/api/users/:id/profile` | Get a user's public profile and stats | No |
 
 ## MongoDB Collections
 

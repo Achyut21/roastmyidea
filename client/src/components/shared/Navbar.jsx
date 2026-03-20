@@ -49,6 +49,7 @@ export default function Navbar() {
         <div className={`navbar-inner${user ? '' : ' no-center'}`}>
           <div className="navbar-left">
             <Link to="/" className="navbar-logo" onClick={closeMenu}>
+              <img src="/logo.webp" alt="RoastMyIdea logo" className="navbar-logo-img" />
               RoastMyIdea
             </Link>
           </div>

@@ -12,20 +12,20 @@ const SOCIAL_LINKS = [
   {
     icon: Youtube,
     label: 'YouTube',
-    href: '#',
-    external: false,
+    href: 'https://youtu.be/PLACEHOLDER',
+    external: true,
   },
   {
     icon: Presentation,
     label: 'Presentation',
-    href: '#',
-    external: false,
+    href: 'https://www.canva.com/design/DAHEb2l0pZ4/m2r9RFUiHWc7poiUrXUuFA/edit?utm_content=DAHEb2l0pZ4&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton',
+    external: true,
   },
   {
     icon: Figma,
     label: 'Figma',
-    href: '#',
-    external: false,
+    href: 'https://www.figma.com/proto/yYo7Sp8kBIOD0Now5FP4eH/RoastMyIdea?page-id=0%3A1&node-id=1-317&p=f&viewport=945%2C400%2C0.4&t=XVGZs7aMbx4jeSMl-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=1%3A317',
+    external: true,
   },
 ];
 
@@ -35,6 +35,7 @@ export default function Footer() {
       <div className="footer-inner">
         <div className="footer-left">
           <Link to="/" className="footer-logo">
+            <img src="/logo.webp" alt="RoastMyIdea logo" className="footer-logo-img" />
             RoastMyIdea
           </Link>
           <p className="footer-tagline">Pitch your idea. The internet decides.</p>
