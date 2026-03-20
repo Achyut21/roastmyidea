@@ -37,6 +37,7 @@ RoastMyIdea is a community platform where users pitch startup ideas, side projec
 | Sign up | ![Sign up](screenshots/signup.webp) |
 | Pitch | ![Pitch](screenshots/pitch.webp) |
 | Profile | ![Profile](screenshots/profile.webp) |
+| MongoDB collections | ![MongoDB collections](screenshots/mongodb.webp) |
 
 ## Design Document
 
