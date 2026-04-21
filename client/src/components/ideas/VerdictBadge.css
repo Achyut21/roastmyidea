@@ -41,7 +41,6 @@
 }
 
 .verdict-badge.urgent {
-  /* --coral-dark (#b83a1e) with white text = 5.7:1 contrast — passes WCAG AA */
   background: var(--coral-dark);
   color: #fff;
   animation: pulse 1.5s ease-in-out infinite;

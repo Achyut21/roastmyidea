@@ -11,6 +11,7 @@
 - [Project Objective](#project-objective)
 - [Screenshots](#screenshots)
 - [Design Document](#design-document)
+- [Usability Study](#usability-study)
 - [Live Demo](#live-demo)
 - [Demo Video](#demo-video)
 - [Presentation](#presentation)
@@ -44,6 +45,19 @@ RoastMyIdea is a community platform where users pitch startup ideas, side projec
 [View the full Design Document](https://github.com/Achyut21/roastmyidea/blob/main/docs/RoastMyIdea%20Design%20Document.pdf) including project description, user personas, user stories, design mockups and technical decisions.
 
 [View Wireframes on Figma](https://www.figma.com/design/yYo7Sp8kBIOD0Now5FP4eH/RoastMyIdea?node-id=0-1&t=bpeWTdcMzqWolV9r-1)
+
+## Usability Study
+
+[View the full Usability Study Report](https://github.com/Achyut21/roastmyidea/blob/main/docs/RoastMyIdea%20Usability%20Study%20Report.pdf) — 3 moderated usability sessions conducted by Achyut Katiyar covering browsing, investing, roasting, and profile tasks. Includes per-participant Likert scores, timestamped friction observations, and a prioritized list of 10 issues with recommended changes.
+
+**Participants:** Jake (developer, hackathon pitcher), Robin (international student, Venture Discovery alumnus), James (CS student, HCI background)
+
+**Key findings:**
+- Roast count badge did not update after posting (fixed)
+- Filter dropdowns reset on every change (fixed)
+- RoastCoin economy and payout mechanics were unclear to all 3 participants
+- Side-lock constraint (can't switch between roasting and defending) confused 2 participants
+- Invest button had no confirmation step — 1 participant double-invested accidentally
 
 ## Live Demo
 

@@ -73,7 +73,6 @@
   color: var(--coral-dark);
 }
 .stat-defense {
-  /* #065e6c on white = ~16:1 contrast — passes WCAG AA */
   color: var(--teal-text);
 }
 .stat-rc {
