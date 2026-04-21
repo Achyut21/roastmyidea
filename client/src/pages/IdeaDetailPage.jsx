@@ -52,7 +52,12 @@ export default function IdeaDetailPage() {
       <div className="detail-layout">
         <div className="detail-left">
           <IdeaHeader idea={idea} />
-          <RoastSection idea={idea} />
+          <RoastSection
+            idea={idea}
+            onRoastCreated={() =>
+              setIdea((prev) => ({ ...prev, roastCount: prev.roastCount + 1 }))
+            }
+          />
         </div>
 
         <aside className="detail-sidebar">

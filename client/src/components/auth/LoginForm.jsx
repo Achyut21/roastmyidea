@@ -33,7 +33,7 @@ export default function LoginForm({ onSuccess }) {
 
   return (
     <form className="auth-form" onSubmit={handleSubmit}>
-      <h2 className="auth-title">Log In</h2>
+      <h1 className="auth-title">Log In</h1>
       {error && <p className="auth-error">{error}</p>}
       <label className="auth-label">
         Email

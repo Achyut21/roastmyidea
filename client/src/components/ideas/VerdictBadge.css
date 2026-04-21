@@ -33,15 +33,16 @@
 @keyframes pulse {
   0%,
   100% {
-    opacity: 1;
+    background: var(--coral-dark);
   }
   50% {
-    opacity: 0.6;
+    background: var(--coral);
   }
 }
 
 .verdict-badge.urgent {
-  background: var(--coral-light);
-  color: var(--coral-text);
+  /* --coral-dark (#b83a1e) with white text = 5.7:1 contrast — passes WCAG AA */
+  background: var(--coral-dark);
+  color: #fff;
   animation: pulse 1.5s ease-in-out infinite;
 }

@@ -31,6 +31,7 @@ export default function FilterBar({
       <select
         className="filter-select"
         value={sort}
+        aria-label="Sort by"
         onChange={(e) => onSortChange(e.target.value)}
       >
         {SORTS.map((s) => (
@@ -42,6 +43,7 @@ export default function FilterBar({
       <select
         className="filter-select"
         value={category}
+        aria-label="Filter by category"
         onChange={(e) => onCategoryChange(e.target.value)}
       >
         <option value="">All Categories</option>
@@ -54,6 +56,7 @@ export default function FilterBar({
       <select
         className="filter-select"
         value={status}
+        aria-label="Filter by status"
         onChange={(e) => onStatusChange(e.target.value)}
       >
         {STATUSES.map((s) => (

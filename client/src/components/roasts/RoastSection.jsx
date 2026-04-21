@@ -6,7 +6,7 @@ import { useToast } from '../../context/ToastContext.jsx';
 import RoastCard from './RoastCard.jsx';
 import './RoastSection.css';
 
-export default function RoastSection({ idea }) {
+export default function RoastSection({ idea, onRoastCreated }) {
   const { user, getToken } = useAuth();
   const { showToast } = useToast();
   const [roasts, setRoasts] = useState([]);
@@ -47,6 +47,7 @@ export default function RoastSection({ idea }) {
       setRoasts((prev) => [data.roast, ...prev]);
       setContent('');
       showToast('Roast posted!');
+      if (onRoastCreated) onRoastCreated();
     } catch {
       setError('Something went wrong. Try again.');
     } finally {
@@ -67,7 +68,11 @@ export default function RoastSection({ idea }) {
       <h2 className="roast-section-title">Roasts &amp; Defenses</h2>
       {!isClosed && !isOwn && user && (
         <form className="roast-form" onSubmit={handleSubmit}>
+          <label className="visually-hidden" htmlFor="roast-content">
+            Write your roast
+          </label>
           <textarea
+            id="roast-content"
             className="roast-textarea"
             placeholder="Why won't this work? Be specific. (10–500 chars)"
             value={content}
@@ -104,17 +109,18 @@ export default function RoastSection({ idea }) {
       {!loading && roasts.length === 0 && (
         <p className="roast-state">No roasts yet. Be the first to tear this apart.</p>
       )}
-      <div className="roast-list">
+      <ul className="roast-list">
         {roasts.map((roast) => (
-          <RoastCard
-            key={roast._id}
-            roast={roast}
-            idea={idea}
-            onUpdate={handleRoastUpdate}
-            onDelete={handleRoastDelete}
-          />
+          <li key={roast._id}>
+            <RoastCard
+              roast={roast}
+              idea={idea}
+              onUpdate={handleRoastUpdate}
+              onDelete={handleRoastDelete}
+            />
+          </li>
         ))}
-      </div>
+      </ul>
     </section>
   );
 }
@@ -125,4 +131,7 @@ RoastSection.propTypes = {
     authorId: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
     verdict: PropTypes.string,
   }).isRequired,
+  onRoastCreated: PropTypes.func,
 };
+
+RoastSection.defaultProps = { onRoastCreated: null };

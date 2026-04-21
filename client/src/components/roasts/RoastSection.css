@@ -54,7 +54,7 @@
 
 .roast-form-error {
   font-size: 0.8rem;
-  color: var(--error, #e53e3e);
+  color: var(--coral);
   margin: 0;
 }
 
@@ -98,4 +98,10 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
+  list-style: none;
+  padding: 0;
+}
+
+.roast-list > li {
+  display: contents;
 }

@@ -68,7 +68,11 @@ export default function BackWidget({ idea, onBacked }) {
       </p>
       {error && <p className="back-error">{error}</p>}
       <div className="back-row">
+        <label className="visually-hidden" htmlFor="back-amount">
+          Amount to invest in RC
+        </label>
         <input
+          id="back-amount"
           className="back-input"
           type="number"
           min={10}

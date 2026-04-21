@@ -143,7 +143,11 @@ export default function DefenseThread({ roast, idea, onCountChange }) {
       </div>
       {!isClosed && !isRoastAuthor && user && (
         <form className="defense-form" onSubmit={handleSubmit}>
+          <label className="visually-hidden" htmlFor="defense-content">
+            Write your defense
+          </label>
           <textarea
+            id="defense-content"
             className="defense-textarea"
             placeholder="Counter this roast — why does this idea actually work? (10–500 chars)"
             value={content}
@@ -175,13 +179,13 @@ export default function DefenseThread({ roast, idea, onCountChange }) {
       {!loading && defenses.length === 0 && (
         <p className="defense-state">No defenses yet. Step up.</p>
       )}
-      <div className="defense-list">
+      <ul className="defense-list">
         {defenses.map((defense) => {
           const isOwn = user && user.id === defense.authorId?.toString();
           const hasUpvoted =
             user && defense.upvotedBy?.some((id) => id.toString() === user.id);
           return (
-            <div key={defense._id} className="defense-card">
+            <li key={defense._id} className="defense-card">
               <div className="defense-card-header">
                 <Shield size={11} aria-hidden="true" className="defense-icon" />
                 <span className="defense-author">{defense.authorDisplayName}</span>
@@ -259,15 +263,17 @@ export default function DefenseThread({ roast, idea, onCountChange }) {
                   className={`defense-upvote-btn${hasUpvoted ? ' upvoted' : ''}`}
                   onClick={() => handleUpvote(defense)}
                   disabled={!user || isOwn}
+                  aria-label={`Upvote this defense, ${defense.upvoteCount || 0} upvotes`}
+                  aria-pressed={hasUpvoted ? 'true' : 'false'}
                 >
                   <ThumbsUp size={11} aria-hidden="true" />
                   {defense.upvoteCount || 0}
                 </button>
               </div>
-            </div>
+            </li>
           );
         })}
-      </div>
+      </ul>
     </div>
   );
 }

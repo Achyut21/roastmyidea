@@ -16,7 +16,7 @@
 }
 
 .roast-card-flame {
-  color: var(--roast, #f97316);
+  color: var(--coral);
   display: flex;
   align-items: center;
 }
@@ -57,7 +57,7 @@
 }
 
 .roast-card-action-btn.danger:hover {
-  color: var(--error, #e53e3e);
+  color: var(--coral);
 }
 
 .roast-card-content {

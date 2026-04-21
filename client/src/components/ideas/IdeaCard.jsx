@@ -11,7 +11,7 @@ export default function IdeaCard({ idea }) {
       <span className="idea-card-category">
         {CATEGORY_LABELS[idea.category] || idea.category}
       </span>
-      <h3 className="idea-card-title">{idea.title}</h3>
+      <h2 className="idea-card-title">{idea.title}</h2>
       <p className="idea-card-author">by {idea.authorDisplayName}</p>
       <div className="idea-card-footer">
         <div className="idea-card-stats">

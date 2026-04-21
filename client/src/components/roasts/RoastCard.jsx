@@ -154,7 +154,8 @@ export default function RoastCard({ roast, idea, onUpdate, onDelete }) {
           className={`roast-upvote-btn${hasUpvoted ? ' upvoted' : ''}`}
           onClick={handleUpvote}
           disabled={!user || isOwn || upvoting}
-          title={!user ? 'Log in to upvote' : isOwn ? "Can't upvote your own" : ''}
+          aria-label={`Upvote this roast, ${roast.upvoteCount || 0} upvotes`}
+          aria-pressed={hasUpvoted ? 'true' : 'false'}
         >
           <ThumbsUp size={13} aria-hidden="true" />
           {roast.upvoteCount || 0}
@@ -162,6 +163,8 @@ export default function RoastCard({ roast, idea, onUpdate, onDelete }) {
         <button
           className="roast-defend-toggle"
           onClick={() => setShowDefenses((v) => !v)}
+          aria-expanded={showDefenses ? 'true' : 'false'}
+          aria-label={`${showDefenses ? 'Hide' : 'Show'} defenses (${defenseCount})`}
         >
           <Shield size={13} aria-hidden="true" />
           {showDefenses ? 'Hide' : 'Defend'} ({defenseCount})

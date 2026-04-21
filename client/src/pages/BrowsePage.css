@@ -83,6 +83,12 @@
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 16px;
   margin-top: 20px;
+  list-style: none;
+  padding: 0;
+}
+
+.browse-grid > li {
+  display: contents;
 }
 
 .browse-empty-state {
@@ -253,6 +259,6 @@
 }
 
 .clear-filters-btn:hover {
-  border-color: var(--red, #ef4444);
-  color: var(--red, #ef4444);
+  border-color: var(--coral);
+  color: var(--coral);
 }

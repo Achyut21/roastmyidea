@@ -182,11 +182,13 @@ export default function BrowsePage() {
       </div>
 
       {loading && (
-        <div className="browse-grid">
+        <ul className="browse-grid">
           {['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l'].map((k) => (
-            <SkeletonCard key={k} />
+            <li key={k}>
+              <SkeletonCard />
+            </li>
           ))}
-        </div>
+        </ul>
       )}
 
       {fetchError && <p className="browse-state browse-error">{fetchError}</p>}
@@ -208,11 +210,13 @@ export default function BrowsePage() {
 
       {!loading && !fetchError && ideas.length > 0 && (
         <>
-          <div className="browse-grid">
+          <ul className="browse-grid">
             {ideas.map((idea) => (
-              <IdeaCard key={idea._id} idea={idea} />
+              <li key={idea._id}>
+                <IdeaCard idea={idea} />
+              </li>
             ))}
-          </div>
+          </ul>
           {!searchQuery && totalPages > 1 && (
             <div className="pagination">
               <button

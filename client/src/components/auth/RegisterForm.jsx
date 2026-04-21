@@ -34,7 +34,7 @@ export default function RegisterForm({ onSuccess }) {
 
   return (
     <form className="auth-form" onSubmit={handleSubmit}>
-      <h2 className="auth-title">Create Account</h2>
+      <h1 className="auth-title">Create Account</h1>
       {error && <p className="auth-error">{error}</p>}
       <label className="auth-label">
         Display Name

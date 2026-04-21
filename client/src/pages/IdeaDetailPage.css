@@ -65,10 +65,10 @@
 }
 
 .stat-roast {
-  color: var(--coral);
+  color: var(--coral-dark);
 }
 .stat-defense {
-  color: var(--teal);
+  color: var(--teal-text);
 }
 .stat-rc {
   color: var(--text-secondary);

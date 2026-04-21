@@ -8,6 +8,7 @@
     "start": "node api/index.js",
     "dev": "node --watch api/index.js",
     "seed": "node server/seed/seed.js",
+    "seed:fresh": "node server/seed/seed-fresh.js",
     "lint": "eslint server/ api/",
     "format": "prettier --write ."
   },

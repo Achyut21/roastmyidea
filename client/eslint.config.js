@@ -8,6 +8,12 @@ export default [
   reactPlugin.configs.flat.recommended,
   reactPlugin.configs.flat['jsx-runtime'],
   {
+    // Global settings — applies to all files including the plugin configs above
+    settings: {
+      react: { version: 'detect' },
+    },
+  },
+  {
     files: ['src/**/*.{js,jsx}'],
     plugins: {
       'react-hooks': reactHooks,
